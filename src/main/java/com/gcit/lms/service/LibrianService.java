@@ -109,7 +109,7 @@ public class LibrianService extends BaseController {
 			for (Book book : books) {
 				book.setAuthors(adao.readAuthorsByBookId(book));
 				book.setGenres(genredao.getGenresByBookId(book));
-				book.setPublisher(publisherdao.getPublierbyBookId(book));
+				book.setPublisher(publisherdao.getPublisherbyBookId(book));
 				book.setBookcopies(bookCopiesdao.getBookCopiesByBookId(book));
 			}
 			return books;

@@ -1,0 +1,29 @@
+<div class="container marketing" ng-controller="publisherController">
+	<h3>List of Publishers in LMS:</h3>
+	<table class="table">
+		<thead class="thead-dark">
+			<tr>
+				<th>#</th>
+				<th>Publisher Name</th>
+				<th>Publisher Address</th>
+        <th>Publisher Phone</th>
+        <th>Book Published</th>
+				<th>Edit</th>
+				<th>Delete</th>
+			</tr>
+		</thead>
+		<tbody ng-repeat="publisher in publishers">
+			<tr>
+				<td>{{publisher.publisherId}}</td>
+				<td>{{publisher.publisherName}}</td>
+        <td>{{publisher.publisherAddress}}</td>
+        <td>{{publisher.publisherPhone}}</td>
+        <td><span ng-repeat="b in publisher.books">{{b.title}} |</span></td>
+				<!-- <td><span ng-repeat="b in a.books">{{b.title}} |</span></td> -->
+				<!-- <td><button type="button" class="btn btn-danger" ng-click="goToUpdate(a.authorId)">Edit</button></td> -->
+				<td><a href="#/admin/editpublisher/{{publisher.publisherId}}">Edit</td>
+				<td><button type="button" class="btn btn-warning" ng-click="deletePublisher(publisher.publisherId)">Delete</button></td>
+			</tr>
+		</tbody>
+	</table>
+</div>

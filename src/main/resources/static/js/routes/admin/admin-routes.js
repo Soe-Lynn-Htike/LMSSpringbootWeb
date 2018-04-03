@@ -15,6 +15,17 @@ lmsApp.config(["$routeProvider", function($routeProvider,$locationProvider){
 	}).when("/admin/editauthor/:authorId", {
 		templateUrl: "editauthor.html",
 		controller: "AuthorDetailController"
+	}).when("/admin/book", {
+		templateUrl: "book.html"
+	}).when("/admin/addbook", {
+		templateUrl: "addbook.html"
+	}).when("/admin/publisher", {
+		templateUrl: "publisher.html"
+	}).when("/admin/viewpublishers", {
+		templateUrl: "viewpublishers.html"
+	}).when("/admin/editpublisher/:publisherId", {
+		templateUrl: "editpublisher.html",
+		controller: "PublisherDetailController"
 	})
 
 	$locationProvider.html5Mode({

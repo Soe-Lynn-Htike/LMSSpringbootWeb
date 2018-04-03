@@ -180,7 +180,7 @@ public class AdminService extends BaseController {
 			for (Book b : books) {
 				b.setAuthors(adao.readAuthorsByBookId(b));
 				b.setGenres(genredao.getGenresByBookId(b));
-				b.setPublisher(publisherdao.getPublierbyBookId(b));
+				b.setPublisher(publisherdao.getPublisherbyBookId(b));
 				b.setBookcopies(bookCopiesdao.getBookCopiesByBookId(b));
 			}
 
@@ -203,7 +203,7 @@ public class AdminService extends BaseController {
 			for (Book book : books) {
 				book.setAuthors(adao.readAuthorsByBookId(book));
 				book.setGenres(genredao.getGenresByBookId(book));
-				book.setPublisher(publisherdao.getPublierbyBookId(book));
+				book.setPublisher(publisherdao.getPublisherbyBookId(book));
 				book.setBookcopies(bookCopiesdao.getBookCopiesByBookId(book));
 			}
 			return books;
@@ -215,6 +215,12 @@ public class AdminService extends BaseController {
 		return null;
 	}
 
+	
+	@RequestMapping(value="initPublisher", method=RequestMethod.GET, produces="application/json" )
+	public Publisher initPublisher() throws SQLException {
+		return new Publisher();
+	}
+	
 	// update Publisher
 	@RequestMapping(value = "updatePublisher", method = RequestMethod.POST, consumes = "application/json")
 	@Transactional
@@ -263,6 +269,22 @@ public class AdminService extends BaseController {
 				p.setBooks(bookdao.readBooksByPublisherId(p));
 			}
 			return publishers;
+		} catch (ClassNotFoundException | SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return null;
+	}
+	
+	@RequestMapping(value = "readPublisherById/{searchPublisher}", method = RequestMethod.GET, produces = "application/json")
+	@Transactional
+	public Publisher readPublisherById(@PathVariable String searchPublisher) throws SQLException {
+		Publisher publisher = new Publisher();
+		try {
+			publisher = publisherdao.getPublisherById(Integer.parseInt(searchPublisher));
+			
+			publisher.setBooks(bookdao.readBooksByPublisherId(publisher));
+			return publisher;
 		} catch (ClassNotFoundException | SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

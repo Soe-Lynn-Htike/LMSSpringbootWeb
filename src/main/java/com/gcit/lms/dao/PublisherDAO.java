@@ -38,9 +38,9 @@ public class PublisherDAO extends BaseDAO<Publisher> implements ResultSetExtract
 		jdbcTemplate.update("delete from tbl_publisher where publiserId = ?",new Object[] {p.getPublisherId()});
 	}
 	
-	public Publisher getPublierbyBookId(Book book) {
+	public Publisher getPublisherbyBookId(Book book) {
 		List<Publisher> publishers = new ArrayList<>();
-		publishers =jdbcTemplate.query("select * from tbl_publisher where publisherId IN (select pubId  from tbl_book where bookId=?);",new Object[] {book.getBookId()},this);
+		publishers =jdbcTemplate.query("select * from tbl_publisher where publisherId IN (select pubId  from tbl_book where bookId=?)",new Object[] {book.getBookId()},this);
 		if(publishers!=null) {
 			return publishers.get(0);
 		}
@@ -48,6 +48,18 @@ public class PublisherDAO extends BaseDAO<Publisher> implements ResultSetExtract
 			return null;
 		}
 	}
+	
+	public Publisher getPublisherById(Integer id) {
+		List<Publisher> publishers = new ArrayList<>();
+		publishers =jdbcTemplate.query("select * from tbl_publisher where publisherId=?",new Object[] {id},this);
+		if(publishers!=null) {
+			return publishers.get(0);
+		}
+		else {
+			return null;
+		}
+	}
+	
 	
 	public List<Publisher> readPublishers(String publisherName) throws ClassNotFoundException,SQLException {
 		if (publisherName != null && !publisherName.isEmpty()) {
