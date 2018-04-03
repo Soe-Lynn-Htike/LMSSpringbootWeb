@@ -1,4 +1,4 @@
-lmsApp.config(["$routeProvider", function($routeProvider){
+lmsApp.config(["$routeProvider", function($routeProvider,$locationProvider){
 	return $routeProvider.when("/",{
 		redirectTo: "/home"
 	}).when("/home", {
@@ -11,5 +11,13 @@ lmsApp.config(["$routeProvider", function($routeProvider){
 		templateUrl: "addauthor.html"
 	}).when("/admin/viewauthors", {
 		templateUrl: "viewauthors.html"
+	}).when("/admin/editauthor/:authorId", {
+		templateUrl: "editauthor.html",
+		controller: "AuthorDetailController"
 	})
+
+	$locationProvider.html5Mode({
+								enabled: true,
+								requireBase: false
+				 });
 }])

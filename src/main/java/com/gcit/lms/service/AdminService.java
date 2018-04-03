@@ -123,6 +123,23 @@ public class AdminService extends BaseController {
 		}
 		return null;
 	}
+	
+	@RequestMapping(value = "readAuthorsById/{Id}", method = RequestMethod.GET, produces = "application/json")
+	@Transactional
+	public Author readAuthorsById(@PathVariable String Id) {
+		  Author author  = new Author();
+		try {
+			author = adao.readAuthorsById(Integer.parseInt(Id));
+			
+			author.setBooks(bookdao.readBooksByAuthorId(author));
+			
+			return author;
+		} catch (ClassNotFoundException | SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return null;
+	}
 
 	// update book
 	@RequestMapping(value = "updateBook", method = RequestMethod.POST, consumes = "application/json")

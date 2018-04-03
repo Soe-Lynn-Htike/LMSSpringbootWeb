@@ -15,7 +15,8 @@
 				<td>{{a.authorId}}</td>
 				<td>{{a.authorName}}</td>
 				<td><span ng-repeat="b in a.books">{{b.title}} |</span></td>
-				<td><button type="button" class="btn btn-danger">Edit</button></td>
+				<!-- <td><button type="button" class="btn btn-danger" ng-click="goToUpdate(a.authorId)">Edit</button></td> -->
+				<td><a href="#/admin/editauthor/{{a.authorId}}">Edit</td>
 				<td><button type="button" class="btn btn-warning" ng-click="deleteAuthor(a.authorId)">Delete</button></td>
 			</tr>
 		</tbody>

@@ -43,7 +43,7 @@ public class AuthorDAO extends BaseDAO<Author> implements ResultSetExtractor<Lis
 	
 	public List<Author> readAuthorsByBookId(Book book){
 		
-		return jdbcTemplate.query("select * from tbl_author where authorId IN (select authorId from tbl_book_authors where bookId=?);",new Object[] {book.getBookId()},this);
+		return jdbcTemplate.query("select * from tbl_author where authorId IN (select authorId from tbl_book_authors where bookId=?)",new Object[] {book.getBookId()},this);
 	}
 	public void deleteAuthor(Author author) throws ClassNotFoundException, SQLException {
 
@@ -66,6 +66,18 @@ public class AuthorDAO extends BaseDAO<Author> implements ResultSetExtractor<Lis
 		
 		searchString = "%"+searchString+ "%";
 		return jdbcTemplate.query("select * from tbl_author where authorName like ?",new Object[] {searchString}, this);
+	}
+	
+	public Author readAuthorsById(Integer id) throws ClassNotFoundException, SQLException {
+
+		List<Author> authors= jdbcTemplate.query("select * from tbl_author where authorId=? ",new Object[] { id }, this);
+		if(authors !=null) {
+		 return	authors.get(0);
+		}
+		else {
+			return null;
+		}
+	
 	}
 
 
