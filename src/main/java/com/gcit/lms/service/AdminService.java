@@ -65,6 +65,11 @@ public class AdminService extends BaseController {
 
 	// update author
 
+	@RequestMapping(value="initAuthor", method=RequestMethod.GET, produces="application/json" )
+	public Author initAuthor() throws SQLException {
+		return new Author();
+	}
+	
 	@RequestMapping(value = "updateAuthor", method = RequestMethod.POST, consumes = "application/json")
 	@Transactional
 	public void updateAuthor(@RequestBody Author author) throws SQLException {
@@ -84,6 +89,7 @@ public class AdminService extends BaseController {
 		}
 	}
 
+	
 	@RequestMapping(value = "readAuthors", method = RequestMethod.GET, produces = "application/json")
 	@Transactional
 	public List<Author> readAllAuthors() {

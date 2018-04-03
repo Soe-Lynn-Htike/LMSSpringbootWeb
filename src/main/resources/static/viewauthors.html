@@ -1,0 +1,23 @@
+<div class="container marketing" ng-controller="authorController">
+	<h3>List of Authors in LMS:</h3>
+	<table class="table">
+		<thead class="thead-dark">
+			<tr>
+				<th>#</th>
+				<th>Author Name</th>
+				<th>Books Written</th>
+				<th>Edit</th>
+				<th>Delete</th>
+			</tr>
+		</thead>
+		<tbody ng-repeat="a in authors">
+			<tr>
+				<td>{{a.authorId}}</td>
+				<td>{{a.authorName}}</td>
+				<td><span ng-repeat="b in a.books">{{b.title}} |</span></td>
+				<td><button type="button" class="btn btn-danger">Edit</button></td>
+				<td><button type="button" class="btn btn-warning" ng-click="deleteAuthor(a.authorId)">Delete</button></td>
+			</tr>
+		</tbody>
+	</table>
+</div>
