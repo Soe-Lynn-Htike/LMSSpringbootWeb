@@ -1,3 +1,4 @@
+"use strict";
 lmsApp.controller("authorController", function($scope, $http, $window, $location){
 
 	if($location.path === '/addauthor'){

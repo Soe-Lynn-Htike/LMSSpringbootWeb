@@ -1,3 +1,4 @@
+"use strict";
 lmsApp.config(["$routeProvider", function($routeProvider,$locationProvider){
 	return $routeProvider.when("/",{
 		redirectTo: "/home"
