@@ -31,13 +31,6 @@ lmsApp.controller("authorController", function($scope, $http, $window, $location
 		})
 
 	}
-
-	$scope.updateAuthor = function(authorId){
-		var author = {
-				"authorId": authorId
-		}
-	}
-
 })
 
 lmsApp.controller("AuthorDetailController",function($scope, $http, $window, $location,$routeParams){
