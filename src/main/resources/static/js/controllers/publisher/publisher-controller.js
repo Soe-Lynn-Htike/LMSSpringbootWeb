@@ -8,6 +8,7 @@ lmsApp.controller("publisherController",function($scope,$location,$http){
     $http.get("http://localhost:8080/lms/readPublishers").then(function(data){
       $scope.publishers = data.data;
     })
+
   }
 })
 
@@ -18,8 +19,8 @@ lmsApp.controller("PublisherDetailController",function($scope,$http,$location,$r
       $scope.publisher = data.data;
   })
 
-  $scope.updatePublisher = function(authorId){
-    $http.post("http://localhost:8080/lms/updateAuthor",$scope.publisher).then(function(data){
+  $scope.updatePublisher = function(publisherId){
+    $http.post("http://localhost:8080/lms/updatePublisher",$scope.publisher).then(function(data){
       $window.location.href = "#/admin/viewpublishers"
     })
   }

@@ -1,5 +1,6 @@
 "use strict";
 lmsApp.config(["$routeProvider", function($routeProvider,$locationProvider){
+	/*$locationProvider.html5Mode(true).hasPrefix("!");*/
 	return $routeProvider.when("/",{
 		redirectTo: "/home"
 	}).when("/home", {
@@ -28,8 +29,8 @@ lmsApp.config(["$routeProvider", function($routeProvider,$locationProvider){
 		controller: "PublisherDetailController"
 	})
 
-	$locationProvider.html5Mode({
-								enabled: true,
-								requireBase: false
-				 });
+	// $locationProvider.html5Mode({
+	// 							enabled: true,
+	// 							requireBase: false
+	// 			 });
 }])

@@ -31,7 +31,7 @@ public class PublisherDAO extends BaseDAO<Publisher> implements ResultSetExtract
 	
 	
 	public void updatePublisher(Publisher p) throws ClassNotFoundException, SQLException {
-		jdbcTemplate.update("update tbl_publisher set publisherName = ? , publisherAddress = ?, publisherPhone = ? where publisherId = ?", new Object[] {p.getPublisherName(),p.getPublisherAddress(),p.getPublisherPhone()});
+		jdbcTemplate.update("update tbl_publisher set publisherName =? , publisherAddress =?, publisherPhone =? where publisherId =?", new Object[] {p.getPublisherName(),p.getPublisherAddress(),p.getPublisherPhone(),p.getPublisherId()});
 	}
 
 	public void deletePublisher(Publisher p) throws ClassNotFoundException, SQLException {
