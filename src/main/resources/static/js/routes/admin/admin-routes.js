@@ -22,11 +22,27 @@ lmsApp.config(["$routeProvider", function($routeProvider,$locationProvider){
 		templateUrl: "addbook.html"
 	}).when("/admin/publisher", {
 		templateUrl: "publisher.html"
+	}).when("/admin/addpublisher", {
+		templateUrl: "addpublisher.html"
 	}).when("/admin/viewpublishers", {
 		templateUrl: "viewpublishers.html"
 	}).when("/admin/editpublisher/:publisherId", {
 		templateUrl: "editpublisher.html",
 		controller: "PublisherDetailController"
+	}).when("/admin/branch", {
+		templateUrl: "branch.html"
+	}).when("/admin/viewbranches", {
+		templateUrl: "viewbranches.html"
+	}).when("/admin/editbranch/:branchId", {
+		templateUrl: "editbranch.html",
+		controller: "BranchDetailController"
+	}).when("/admin/genre", {
+		templateUrl: "genre.html"
+	}).when("/admin/viewgenres", {
+		templateUrl: "viewgenres.html"
+	}).when("/admin/editgenre/:genreId", {
+		templateUrl: "editgenre.html",
+		controller: "GenreDetailController"
 	})
 
 	// $locationProvider.html5Mode({

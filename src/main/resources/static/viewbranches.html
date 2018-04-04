@@ -1,0 +1,24 @@
+<div class="container marketing" ng-controller="branchController">
+	<h3>List of Authors in LMS:</h3>
+	<table class="table">
+		<thead class="thead-dark">
+			<tr>
+				<th>#</th>
+				<th>Author Name</th>
+				<th>Books Written</th>
+				<th>Edit</th>
+				<th>Delete</th>
+			</tr>
+		</thead>
+		<tbody ng-repeat="branch in branches">
+			<tr>
+				<td>{{branch.branchId}}</td>
+				<td>{{branch.branchName}}</td>
+				<!-- <td><span ng-repeat="b in a.books">{{b.title}} |</span></td> -->
+				<!-- <td><button type="button" class="btn btn-danger" ng-click="goToUpdate(a.authorId)">Edit</button></td> -->
+				<!-- <td><a href="#/admin/editauthor/{{a.authorId}}">Edit</td>
+				<td><button type="button" class="btn btn-warning" ng-click="deleteAuthor(a.authorId)">Delete</button></td> -->
+			</tr>
+		</tbody>
+	</table>
+</div>
