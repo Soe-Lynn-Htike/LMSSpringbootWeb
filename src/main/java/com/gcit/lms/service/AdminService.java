@@ -424,6 +424,11 @@ public class AdminService extends BaseController {
 		return null;
 	}
 
+	@RequestMapping(value="initBranch", method=RequestMethod.GET, produces="application/json" )
+	public Branch initBranch() throws SQLException {
+		return new Branch();
+	}
+	
 	// Library Branch
 	@RequestMapping(value = "updateBranch", method = RequestMethod.POST, consumes = "application/json")
 	@Transactional
@@ -472,6 +477,23 @@ public class AdminService extends BaseController {
 			for (Branch branch : branches) {
 				branch.setBookcopies(bookCopiesdao.getBookCopiesByBranch(branch));
 			}
+			return branches;
+		} catch (ClassNotFoundException | SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return null;
+	}
+	
+	@RequestMapping(value = "readBranchById/{searchBranch}", method = RequestMethod.GET, produces = "application/json")
+	@Transactional
+	public Branch readBranchById(@PathVariable String searchBranch) throws SQLException {
+		Branch branch = new Branch();
+		try {
+			branch = branchdao.readBranchById(Integer.parseInt(searchBranch));
+			branch.setBookcopies(bookCopiesdao.getBookCopiesByBranch(branch));
+			
+			return branch;
 		} catch (ClassNotFoundException | SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

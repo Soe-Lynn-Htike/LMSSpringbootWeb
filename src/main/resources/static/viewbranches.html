@@ -1,23 +1,40 @@
 <div class="container marketing" ng-controller="branchController">
-	<h3>List of Authors in LMS:</h3>
+	<h3>List of Branches in LMS:</h3>
+	<div class="input-group">
+      <input type="text" class="form-control" ng-model="searchString" ng-change="searchBranches()" placeholder="Search for...">
+      <!-- <span class="input-group-btn">
+        <button class="btn btn-default" type="button">Go!</button>
+      </span> -->
+  </div>
+	<br>
+		<div class="col-md-10">
+			<ul class="pagination">
+				<li><a href="" ng-click="pagination.prevPage()">&laquo;</a></li>
+				<li ng-repeat="n in [] | range: pagination.numPages"
+					ng-class="{active: n == pagination.page}"><a href=""
+					ng-click="pagination.toPageId(n)">{{n + 1}}</a></li>
+				<li><a href="" ng-click="pagination.nextPage()">&raquo;</a></li>
+			</ul>
+	</div>
 	<table class="table">
 		<thead class="thead-dark">
 			<tr>
 				<th>#</th>
-				<th>Author Name</th>
-				<th>Books Written</th>
+				<th>Branch Name</th>
+				<th>Branch Address</th>
 				<th>Edit</th>
 				<th>Delete</th>
 			</tr>
 		</thead>
-		<tbody ng-repeat="branch in branches">
-			<tr>
-				<td>{{branch.branchId}}</td>
+		<tbody>
+			<tr ng-repeat="branch in branches | startFrom: pagination.page * pagination.perPage | limitTo: pagination.perPage">
+				<td>{{$index+1}}</td>
 				<td>{{branch.branchName}}</td>
+					<td>{{branch.branchAddress}}</td>
 				<!-- <td><span ng-repeat="b in a.books">{{b.title}} |</span></td> -->
 				<!-- <td><button type="button" class="btn btn-danger" ng-click="goToUpdate(a.authorId)">Edit</button></td> -->
-				<!-- <td><a href="#/admin/editauthor/{{a.authorId}}">Edit</td>
-				<td><button type="button" class="btn btn-warning" ng-click="deleteAuthor(a.authorId)">Delete</button></td> -->
+				<td><a href="#/admin/editbranch/{{branch.branchId}}">Edit</td>
+				<td><button type="button" class="btn btn-warning" ng-click="deleteBranch(branch.branchId)">Delete</button></td>
 			</tr>
 		</tbody>
 	</table>

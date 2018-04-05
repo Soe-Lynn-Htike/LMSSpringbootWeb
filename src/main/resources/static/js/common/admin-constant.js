@@ -8,5 +8,8 @@ lmsApp.constant("adminConstants",{
       SAVE_ALL_PUBLISHERS  : "http://localhost:8080/lms/updatePublisher",
       INITIALIZE_BOOK : "http://localhost:8080/lms/initBook",
       GET_ALL_BOOKS : "http://localhost:8080/lms/readBooks",
-      SAVE_ALL_BOOKS : "http://localhost:8080/lms/updateBook"
+      SAVE_ALL_BOOKS : "http://localhost:8080/lms/updateBook",
+      INITIALIZE_BRANCH : "http://localhost:8080/lms/initBranch",
+      GET_ALL_BRANCHES : "http://localhost:8080/lms/readBranches",
+      SAVE_ALL_BRANCHES :"http://localhost:8080/lms/updateBranch"
 })

@@ -31,6 +31,8 @@ lmsApp.config(["$routeProvider", function($routeProvider,$locationProvider){
 		controller: "PublisherDetailController"
 	}).when("/admin/branch", {
 		templateUrl: "branch.html"
+	}).when("/admin/addbranch", {
+		templateUrl: "addbranch.html"
 	}).when("/admin/viewbranches", {
 		templateUrl: "viewbranches.html"
 	}).when("/admin/editbranch/:branchId", {

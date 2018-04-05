@@ -1,5 +1,21 @@
 <div class="container marketing" ng-controller="publisherController">
 	<h3>List of Publishers in LMS:</h3>
+	<div class="input-group">
+      <input type="text" class="form-control" ng-model="searchString" ng-change="searchPublisher()" placeholder="Search for...">
+      <!-- <span class="input-group-btn">
+        <button class="btn btn-default" type="button">Go!</button>
+      </span> -->
+  </div>
+	<br>
+		<div class="col-md-10">
+			<ul class="pagination">
+				<li><a href="" ng-click="pagination.prevPage()">&laquo;</a></li>
+				<li ng-repeat="n in [] | range: pagination.numPages"
+					ng-class="{active: n == pagination.page}"><a href=""
+					ng-click="pagination.toPageId(n)">{{n + 1}}</a></li>
+				<li><a href="" ng-click="pagination.nextPage()">&raquo;</a></li>
+			</ul>
+	</div>
 	<table class="table">
 		<thead class="thead-dark">
 			<tr>
@@ -12,8 +28,8 @@
 				<th>Delete</th>
 			</tr>
 		</thead>
-		<tbody ng-repeat="publisher in publishers">
-			<tr>
+		<tbody>
+			<tr ng-repeat="publisher in publishers | startFrom: pagination.page * pagination.perPage | limitTo: pagination.perPage">
 				<td>{{$index+1}}</td>
 				<td>{{publisher.publisherName}}</td>
         <td>{{publisher.publisherAddress}}</td>

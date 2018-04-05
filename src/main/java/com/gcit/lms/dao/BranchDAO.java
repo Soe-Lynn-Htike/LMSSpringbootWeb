@@ -48,6 +48,14 @@ public class BranchDAO extends BaseDAO<Branch> implements ResultSetExtractor<Lis
 			return null;
 		}
 	}
+	public Branch readBranchById(Integer branchId) {
+		List<Branch> branches = jdbcTemplate.query("select * from tbl_library_branch where branchId=?",new Object[] {branchId},this);
+		if(branches !=null) {
+			return branches.get(0);
+		}else {
+			return null;
+		}
+	}
 	public List<Branch> readBranches(String branchName) throws ClassNotFoundException, SQLException{
 	
 		if (branchName != null && !branchName.isEmpty()) {

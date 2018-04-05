@@ -1,8 +1,5 @@
 "use strict";
 lmsApp.controller("authorController", function($scope, $http, $window, $location,lmsFactory,adminConstants,Pagination,$filter){
-
-
-
 	if($location.path() == '/admin/addauthor'){
 		lmsFactory.readAllObjects(adminConstants.INITIALIZE_AUTHOR).then(function(data){
 			$scope.author = data;
@@ -21,8 +18,6 @@ lmsApp.controller("authorController", function($scope, $http, $window, $location
 	}
 
 	$scope.saveAuthor = function(){
-
-		console.log($scope.author);
 			lmsFactory.saveAllObjects(adminConstants.SAVE_ALL_AUTHORS, $scope.author).then(function(data){
 			$window.location.href = "#/admin/viewauthors";
 		})
