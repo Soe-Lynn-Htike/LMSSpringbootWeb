@@ -12,6 +12,7 @@ import java.util.List;
 import org.springframework.jdbc.core.ResultSetExtractor;
 import org.springframework.stereotype.Component;
 
+import com.gcit.lms.entity.Author;
 import com.gcit.lms.entity.Book;
 import com.gcit.lms.entity.Genre;
 
@@ -33,7 +34,18 @@ public class GenreDAO extends BaseDAO<Genre> implements ResultSetExtractor<List<
 	public void deleteGenre(Genre g) throws ClassNotFoundException, SQLException {
 		jdbcTemplate.update("delete  from tbl_genre where genre_id=?",new Object[] {g.getGenre_id()});
 	}
-	
+	public void saveGenreBook(Genre genre) throws ClassNotFoundException, SQLException {
+		for (Book book : genre.getBooks()) {
+			jdbcTemplate.update("insert into tbl_book_genres VALUES (?, ?)",
+					new Object[] {genre.getGenre_id(), book.getBookId()});
+		}
+	}
+	public void deleteGenreBook(Genre genre) throws ClassNotFoundException, SQLException {
+		for (Book book : genre.getBooks()) {
+			jdbcTemplate.update("delete from tbl_book_genres where genre_id=? and bookId=?",
+					new Object[] { genre.getGenre_id(), book.getBookId() });
+		}
+	}
 	public List<Genre> getGenresByBookId(Book book){
 		return jdbcTemplate.query("select * from tbl_genre where genre_id IN (select genre_id from tbl_book_genres where bookId=?);",new Object[] {book.getBookId()} ,this);
 	}
@@ -43,6 +55,17 @@ public class GenreDAO extends BaseDAO<Genre> implements ResultSetExtractor<List<
 			return jdbcTemplate.query("select * from tbl_genre where genre_name like ?", new Object[]{genreName},this);
 		}else{
 			return jdbcTemplate.query("select * from tbl_genre", this);
+		}
+		
+	}
+	public Genre readGenreById(Integer id) throws ClassNotFoundException,SQLException {
+		List<Genre> genres = new ArrayList<>();
+		genres = jdbcTemplate.query("select * from tbl_genre where genre_id=?", new Object[] {id},this);
+		if(genres !=null) {
+			return genres.get(0);
+		}
+		else {
+			return null;
 		}
 		
 	}
@@ -59,5 +82,6 @@ public class GenreDAO extends BaseDAO<Genre> implements ResultSetExtractor<List<
 		}
 		return genres;
 	}
+	
 
 }

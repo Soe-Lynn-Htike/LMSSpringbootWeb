@@ -56,12 +56,7 @@ lmsApp.controller("AuthorDetailController",function($scope, $http, $window, $loc
 			lmsFactory.saveAllObjects(adminConstants.DELETE_AUTHOR_BOOKS,$scope.author).then(function(data){
 	 })
 	})
-
-	$scope.beforeRemoveItem  = function(item){
-
-
-	}
-
+	
 	lmsFactory.readAllObjects(adminConstants.GET_ALL_BOOKS).then(function(data){
 		$scope.books =data;
 	})

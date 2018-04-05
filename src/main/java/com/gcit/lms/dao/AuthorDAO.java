@@ -77,11 +77,11 @@ public class AuthorDAO extends BaseDAO<Author> implements ResultSetExtractor<Lis
 		return status;*/
 
 	}
-	public void saveBookAuthor(Author author, Book book) throws ClassNotFoundException, SQLException {
+	/*public void saveBookAuthor(Author author, Book book) throws ClassNotFoundException, SQLException {
 
 		jdbcTemplate.update("INSERT INTO tbl_book_authors VALUES (?, ?)",
 				new Object[] { book.getBookId(), author.getAuthorId() });
-	}
+	}*/
 	public void saveAuthorBook(Author author) throws ClassNotFoundException, SQLException {
 		for (Book book : author.getBooks()) {
 			jdbcTemplate.update("insert into tbl_book_authors VALUES (?, ?)",

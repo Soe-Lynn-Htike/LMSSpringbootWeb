@@ -311,6 +311,11 @@ public class AdminService extends BaseController {
 		return null;
 	}
 
+	@RequestMapping(value="initGenre", method=RequestMethod.GET, produces="application/json" )
+	public Genre initGenre() throws SQLException {
+		return new Genre();
+	}
+	
 	// update Genre
 	@RequestMapping(value = "updateGenre", method = RequestMethod.POST, consumes = "application/json")
 	@Transactional
@@ -365,6 +370,35 @@ public class AdminService extends BaseController {
 		}
 		return null;
 
+	}
+	
+	@RequestMapping(value = "readGenreById/{searchGenre}", method = RequestMethod.GET, produces = "application/json")
+	@Transactional
+	public Genre readGenreById(@PathVariable String searchGenre) throws SQLException {
+		Genre genre = new Genre();
+		try {
+			genre = genredao.readGenreById(Integer.parseInt(searchGenre));
+			genre.setBooks(bookdao.readBooksByGenreId(genre));
+		
+			return genre;
+		} catch (ClassNotFoundException | SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return null;
+
+	}
+	
+	@RequestMapping(value = "updateGenreBook", method = RequestMethod.POST, consumes = "application/json")
+	@Transactional
+	public void updateGenreBook(@RequestBody Genre genre) throws SQLException {
+		try {
+			genredao.deleteGenreBook(genre);
+		} catch (ClassNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace(); // log your stacktrace
+			// display a meaningful user
+		}
 	}
 
 	// update Borrower
