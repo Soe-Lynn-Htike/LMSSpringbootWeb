@@ -12,5 +12,9 @@ lmsApp.constant("adminConstants",{
       SAVE_ALL_BOOKS : "http://localhost:8080/lms/updateBook",
       INITIALIZE_BRANCH : "http://localhost:8080/lms/initBranch",
       GET_ALL_BRANCHES : "http://localhost:8080/lms/readBranches",
-      SAVE_ALL_BRANCHES :"http://localhost:8080/lms/updateBranch"
+      SAVE_ALL_BRANCHES :"http://localhost:8080/lms/updateBranch",
+      INITIALIZE_GENRE : "http://localhost:8080/lms/initGenre",
+      GET_ALL_GENRES : "http://localhost:8080/lms/readGenres",
+      SAVE_ALL_GENRES: "http://localhost:8080/lms/updateGenre",
+      DELETE_BOOK_GENRE :"http://localhost:8080/lms/updateGenreBook"
 })

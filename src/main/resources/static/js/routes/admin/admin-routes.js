@@ -20,6 +20,8 @@ lmsApp.config(["$routeProvider", function($routeProvider,$locationProvider){
 		templateUrl: "book.html"
 	}).when("/admin/addbook", {
 		templateUrl: "addbook.html"
+	}).when("/admin/viewbooks", {
+		templateUrl: "viewbooks.html"
 	}).when("/admin/publisher", {
 		templateUrl: "publisher.html"
 	}).when("/admin/addpublisher", {
