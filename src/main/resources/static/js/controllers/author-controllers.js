@@ -23,6 +23,8 @@ lmsApp.controller("authorController", function($scope, $http, $window, $location
 		})
 	}
 
+
+
 	$scope.searchAuthors = function(){
 			lmsFactory.readAllObjects("http://localhost:8080/lms/readAuthorsByName/"+$scope.searchString).then(function(data){
 						$scope.authors = data;
@@ -50,12 +52,21 @@ lmsApp.controller("AuthorDetailController",function($scope, $http, $window, $loc
 
 	lmsFactory.readAllObjects("http://localhost:8080/lms/readAuthorsById/"+$routeParams.authorId).then(function(data){
 			$scope.author = data;
+			$scope.booklist = $scope.author.books;
+			lmsFactory.saveAllObjects(adminConstants.DELETE_AUTHOR_BOOKS,$scope.author).then(function(data){
+	 })
 	})
+
+	$scope.beforeRemoveItem  = function(item){
+
+
+	}
 
 	lmsFactory.readAllObjects(adminConstants.GET_ALL_BOOKS).then(function(data){
 		$scope.books =data;
 	})
 	$scope.updateAuthor = function(authorId){
+		$scope.author.books = $scope.booklist;
 		lmsFactory.saveAllObjects(adminConstants.SAVE_ALL_AUTHORS,$scope.author).then(function(data){
 			$window.location.href = "#/admin/viewauthors"
 		})

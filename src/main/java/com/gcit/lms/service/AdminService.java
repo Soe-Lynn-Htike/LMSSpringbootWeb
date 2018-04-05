@@ -92,6 +92,18 @@ public class AdminService extends BaseController {
 		}
 	}
 
+	@RequestMapping(value = "updateAuthorBook", method = RequestMethod.POST, consumes = "application/json")
+	@Transactional
+	public void updateAuthorBook(@RequestBody Author author) throws SQLException {
+
+		try {
+				adao.deleteAuthorBook(author);
+		} catch (ClassNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace(); // log your stacktrace
+			// display a meaningful user
+		}
+	}
 	
 	@RequestMapping(value = "readAuthors", method = RequestMethod.GET, produces = "application/json")
 	@Transactional

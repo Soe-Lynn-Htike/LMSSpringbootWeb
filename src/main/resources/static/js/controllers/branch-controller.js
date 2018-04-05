@@ -45,7 +45,6 @@ lmsApp.controller("branchController",function($scope, $http, $window, $location,
 lmsApp.controller("BranchDetailController",function($scope, $http, $window, $location,lmsFactory,adminConstants,Pagination,$filter,$routeParams){
   lmsFactory.readAllObjects("http://localhost:8080/lms/readBranchById/"+$routeParams.branchId).then(function(data){
       $scope.branch = data;
-      console.log($scope.branch);
   })
   $scope.updateBranch = function(authorId){
     lmsFactory.saveAllObjects(adminConstants.SAVE_ALL_BRANCHES,$scope.branch).then(function(data){
