@@ -77,6 +77,7 @@ public class AdminService extends BaseController {
 		try {
 			if (author.getAuthorId() != null && author.getAuthorName() != null) {
 				adao.updateAuthor(author);
+				adao.saveAuthorBook(author);
 			} else if (author.getAuthorId() == null && author.getAuthorName() != null) {
 				Integer authorId = adao.createAuthorWithPK(author);
 				author.setAuthorId(authorId);

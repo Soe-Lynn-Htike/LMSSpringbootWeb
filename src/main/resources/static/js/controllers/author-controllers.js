@@ -56,6 +56,10 @@ lmsApp.controller("AuthorDetailController",function($scope, $http, $window, $loc
 	lmsFactory.readAllObjects("http://localhost:8080/lms/readAuthorsById/"+$routeParams.authorId).then(function(data){
 			$scope.author = data;
 	})
+
+	lmsFactory.readAllObjects(adminConstants.GET_ALL_BOOKS).then(function(data){
+		$scope.books =data;
+	})
 	$scope.updateAuthor = function(authorId){
 		lmsFactory.saveAllObjects(adminConstants.SAVE_ALL_AUTHORS,$scope.author).then(function(data){
 			$window.location.href = "#/admin/viewauthors"
