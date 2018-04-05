@@ -323,8 +323,11 @@ public class AdminService extends BaseController {
 		try {
 			if (genre.getGenre_id() != null && genre.getGenre_name() != null) {
 				genredao.updateGenre(genre);
+				genredao.saveGenreBook(genre);
 			} else if (genre.getGenre_id() == null && genre.getGenre_name() != null) {
-				genredao.creatGenre(genre);
+				Integer genreId = genredao.createGenreWithPK(genre);
+				genre.setGenre_id(genreId);
+				genredao.saveGenreBook(genre);
 			} else {
 				genredao.deleteGenre(genre);
 			}

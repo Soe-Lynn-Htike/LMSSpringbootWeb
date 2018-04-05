@@ -4,12 +4,17 @@
 package com.gcit.lms.dao;
 
 import java.sql.Connection;
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.springframework.jdbc.core.PreparedStatementCreator;
 import org.springframework.jdbc.core.ResultSetExtractor;
+import org.springframework.jdbc.support.GeneratedKeyHolder;
+import org.springframework.jdbc.support.KeyHolder;
 import org.springframework.stereotype.Component;
 
 import com.gcit.lms.entity.Author;
@@ -27,6 +32,22 @@ public class GenreDAO extends BaseDAO<Genre> implements ResultSetExtractor<List<
 	
 	public void creatGenre(Genre g) throws ClassNotFoundException, SQLException { 
 		jdbcTemplate.update("insert into tbl_genre(genre_name) values(?)", new Object[] {g.getGenre_id()});
+	}
+	public Integer createGenreWithPK(Genre genre) throws ClassNotFoundException, SQLException {
+		 KeyHolder keyHolder = new GeneratedKeyHolder();
+		    jdbcTemplate.update(new PreparedStatementCreator() {
+		        public PreparedStatement createPreparedStatement(Connection connection)
+		                throws SQLException {
+		            PreparedStatement ps = 
+		                connection.prepareStatement("insert into tbl_genre (genre_name) values(?)", 
+		                    Statement.RETURN_GENERATED_KEYS);
+		            ps.setString(1, genre.getGenre_name());
+		           
+		            return ps;
+		        }
+		    }, keyHolder);
+		    Integer id = keyHolder.getKey().intValue();
+		   return id;
 	}
 	public void updateGenre(Genre g) throws ClassNotFoundException, SQLException {
 		jdbcTemplate.update("update tbl_genre set genre_name= ? where genre_id =?", new Object[] {g.getGenre_name(),g.getGenre_id()});
