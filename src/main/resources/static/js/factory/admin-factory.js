@@ -3,8 +3,8 @@ lmsApp.factory("lmsFactory",function($http){
 
       readAllObjects : function(url){
             var listObjects = {};
-             return $http({
-                url: url
+             return $http.get(url,{
+                headers: {'Content-type': 'application/json'}
             }).success(function(data){
                listObjects = data;
             }).then(function(data){

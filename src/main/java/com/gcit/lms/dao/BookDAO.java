@@ -3,17 +3,20 @@
  */
 package com.gcit.lms.dao;
 
-import java.math.BigDecimal;
+
 import java.sql.Connection;
-import java.sql.DriverManager;
+
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.springframework.jdbc.core.PreparedStatementCreator;
 import org.springframework.jdbc.core.ResultSetExtractor;
 import org.springframework.jdbc.support.GeneratedKeyHolder;
+import org.springframework.jdbc.support.KeyHolder;
 import org.springframework.stereotype.Component;
 
 import com.gcit.lms.entity.Author;
@@ -38,9 +41,9 @@ public class BookDAO extends BaseDAO<Book> implements ResultSetExtractor<List<Bo
 
 	public Integer createBookWithPK(Book book) throws ClassNotFoundException, SQLException {
 
-		// return createWithPK("insert int tbl_book (title) values(?)", new Object[]
+		/*// return createWithPK("insert int tbl_book (title) values(?)", new Object[]
 		// {book.getTitle()});
-		String insertSql = "insert int tbl_book (title) values(?)";
+		String insertSql = "insert into tbl_book (title) values(?)";
 		// this is the key holder
 		GeneratedKeyHolder keyHolder = new GeneratedKeyHolder();
 
@@ -57,7 +60,20 @@ public class BookDAO extends BaseDAO<Book> implements ResultSetExtractor<List<Bo
 
 		// after the update executed we can now get the value of the generated ID
 		BigDecimal id = (BigDecimal) keyHolder.getKeys().get(id_column);
-		return id.intValue();
+		return id.intValue();*/
+		KeyHolder keyHolder = new GeneratedKeyHolder();
+	    jdbcTemplate.update(new PreparedStatementCreator() {
+	        public PreparedStatement createPreparedStatement(Connection connection)
+	                throws SQLException {
+	            PreparedStatement ps = 
+	                connection.prepareStatement("insert int tbl_book (title) values(?)", 
+	                    Statement.RETURN_GENERATED_KEYS);
+	            ps.setString(1, book.getTitle());
+	            return ps;
+	        }
+	    }, keyHolder);
+	    Integer id = keyHolder.getKey().intValue();
+	   return id; 
 
 	}
 

@@ -1,2 +1,2 @@
 "use strict";
-var lmsApp = angular.module("lmsApp", ["ngRoute","simplePagination"]);
+var lmsApp = angular.module("lmsApp", ["ngRoute","simplePagination","multipleSelect"]);

@@ -78,7 +78,9 @@ public class AdminService extends BaseController {
 			if (author.getAuthorId() != null && author.getAuthorName() != null) {
 				adao.updateAuthor(author);
 			} else if (author.getAuthorId() == null && author.getAuthorName() != null) {
-				adao.createAuthor(author);
+				Integer authorId = adao.createAuthorWithPK(author);
+				author.setAuthorId(authorId);
+				adao.saveAuthorBook(author);
 			} else {
 				adao.deleteAuthor(author);
 			}
@@ -141,6 +143,10 @@ public class AdminService extends BaseController {
 		return null;
 	}
 
+	@RequestMapping(value="initBook", method=RequestMethod.GET, produces="application/json" )
+	public Book initBook() throws SQLException {
+		return new Book();
+	}
 	// update book
 	@RequestMapping(value = "updateBook", method = RequestMethod.POST, consumes = "application/json")
 	@Transactional
