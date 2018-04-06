@@ -29,6 +29,7 @@ import com.gcit.lms.entity.Book;
 import com.gcit.lms.entity.BookCopies;
 import com.gcit.lms.entity.Branch;
 //import com.gcit.lms.jdbc.JDBCDemo;
+import com.gcit.lms.entity.Genre;
 
 /**
  * @author Aaron
@@ -99,6 +100,10 @@ public class LibrianService extends BaseController {
 		}
 	}*/
 	
+	@RequestMapping(value="initBookCopies", method=RequestMethod.GET, produces="application/json" )
+	public BookCopies initBookCopies() throws SQLException {
+		return new BookCopies();
+	}
 	
 	@RequestMapping(value = "readBooksByBranch/{searchBranch}", method = RequestMethod.GET, produces = "application/json")
 	@Transactional

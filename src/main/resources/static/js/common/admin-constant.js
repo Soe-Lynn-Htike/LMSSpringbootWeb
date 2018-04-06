@@ -18,5 +18,8 @@ lmsApp.constant("adminConstants",{
       INITIALIZE_GENRE : "http://localhost:8080/lms/initGenre",
       GET_ALL_GENRES : "http://localhost:8080/lms/readGenres",
       SAVE_ALL_GENRES: "http://localhost:8080/lms/updateGenre",
-      DELETE_BOOK_GENRE :"http://localhost:8080/lms/updateGenreBook"
+      DELETE_BOOK_GENRE :"http://localhost:8080/lms/updateGenreBook",
+      INITIALIZE_BOOKCOPIES : "http://localhost:8080/lms/initBookCopies",
+      GET_BOOK_COPIES : "http://localhost:8080/lms/showNoOfCopies",
+      SET_BOOK_COPIES :"http://localhost:8080/lms/updateNoOfCopies"
 })

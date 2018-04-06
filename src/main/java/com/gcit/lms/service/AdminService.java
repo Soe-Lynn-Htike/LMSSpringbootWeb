@@ -570,7 +570,7 @@ public class AdminService extends BaseController {
 	public List<Branch> readBranchByName(@PathVariable String searchBranchName) throws SQLException {
 		List<Branch> branches = new ArrayList<>();
 		try {
-			branches = branchdao.readBranches("");
+			branches = branchdao.readBranches(searchBranchName);
 			for (Branch branch : branches) {
 				branch.setBookcopies(bookCopiesdao.getBookCopiesByBranch(branch));
 			}
