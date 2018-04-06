@@ -6,15 +6,22 @@
 				<label for="authorName">Update Book Name: </label> <input
 					type="text" class="form-control" ng-model="book.title" placeholder="Book Name">
 			</div>
-			<!-- <div class="form-group">
-				<label for="exampleFormControlSelect1">Choose Book</label>
-				<multiple-autocomplete ng-model="booklist"
-		 				object-property="title"
-		 				suggestions-arr="books">
+			<div class="form-group">
+				<label for="exampleFormControlSelect1">Choose Author</label>
+				<multiple-autocomplete ng-model="authorlist"
+		 				object-property="authorName"
+		 				suggestions-arr="authors">
 					</multiple-autocomplete>
-			</div> -->
-			<button type="button" class="btn btn-primary" ng-click="updateAuthor(author.authorId)">Update
-				Author</button>
+			</div>
+			<div class="form-group">
+				<label for="exampleFormControlSelect1">Choose Genre</label>
+				<multiple-autocomplete ng-model="genrelist"
+		 				object-property="genre_name"
+		 				suggestions-arr="genres">
+					</multiple-autocomplete>
+			</div>
+			<button type="button" class="btn btn-primary" ng-click="updateBook(book.bookId)">Update
+				Book</button>
 		</form>
 	</div>
 </div>

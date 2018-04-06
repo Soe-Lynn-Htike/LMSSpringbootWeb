@@ -168,13 +168,14 @@ public class AdminService extends BaseController {
 		try {
 			if (book.getBookId() != null && book.getTitle() != null) {
 				bookdao.updateBook(book);
+				bookdao.saveBookAuthor(book);
+				bookdao.saveBookGenre(book);
 
-			} else if (book.getBookId() == null && book.getTitle() != null) {
+			} else if (book.getBookId() == null && book.getTitle() != null && book.getPublisherId()!= null) {
 				// bdao.createBook(book);
 				Integer bookId = bookdao.createBookWithPK(book);
 				book.setBookId(bookId);
-				book.setPublisherId(book.getPublisherId());
-				bookdao.updateBookByPublisherId(book);
+				//bookdao.updateBookByPublisherId(book);
 				bookdao.saveBookAuthor(book);
 				bookdao.saveBookGenre(book);
 				// add to book genre
@@ -232,6 +233,39 @@ public class AdminService extends BaseController {
 			e.printStackTrace();
 		}
 		return null;
+	}
+	
+	@RequestMapping(value = "readBookById/{searchId}", method = RequestMethod.GET, produces = "application/json")
+	@Transactional
+	public Book readBookById(@PathVariable String searchId) throws SQLException {
+		Book book = new Book();
+		try {
+			book = bookdao.getBookByPK(Integer.parseInt(searchId));
+				book.setAuthors(adao.readAuthorsByBookId(book));
+				book.setGenres(genredao.getGenresByBookId(book));
+				book.setPublisher(publisherdao.getPublisherbyBookId(book));
+				book.setBookcopies(bookCopiesdao.getBookCopiesByBookId(book));
+			return book;
+
+		} catch (ClassNotFoundException | SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return null;
+	}
+	
+	
+	@RequestMapping(value = "updateBookAuthorGenre", method = RequestMethod.POST, consumes = "application/json")
+	@Transactional
+	public void updateBookAuthorGenre(@RequestBody Book book) throws SQLException {
+
+		try {
+				bookdao.deleteAuthorGenre(book);
+		} catch (ClassNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace(); // log your stacktrace
+			// display a meaningful user
+		}
 	}
 
 	

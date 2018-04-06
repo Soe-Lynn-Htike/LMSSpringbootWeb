@@ -11,6 +11,7 @@ lmsApp.constant("adminConstants",{
       INITIALIZE_BOOK : "http://localhost:8080/lms/initBook",
       GET_ALL_BOOKS : "http://localhost:8080/lms/readBooks",
       SAVE_ALL_BOOKS : "http://localhost:8080/lms/updateBook",
+      DELETE_BOOK_AUTHOR_GENRE : "http://localhost:8080/lms/updateBookAuthorGenre",
       INITIALIZE_BRANCH : "http://localhost:8080/lms/initBranch",
       GET_ALL_BRANCHES : "http://localhost:8080/lms/readBranches",
       SAVE_ALL_BRANCHES :"http://localhost:8080/lms/updateBranch",

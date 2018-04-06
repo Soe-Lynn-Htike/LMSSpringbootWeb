@@ -66,9 +66,10 @@ public class BookDAO extends BaseDAO<Book> implements ResultSetExtractor<List<Bo
 	        public PreparedStatement createPreparedStatement(Connection connection)
 	                throws SQLException {
 	            PreparedStatement ps = 
-	                connection.prepareStatement("insert int tbl_book (title) values(?)", 
+	                connection.prepareStatement("insert into tbl_book (title,pubId) values(?,?)", 
 	                    Statement.RETURN_GENERATED_KEYS);
 	            ps.setString(1, book.getTitle());
+	            ps.setInt(2, book.getPublisherId());
 	            return ps;
 	        }
 	    }, keyHolder);
@@ -90,9 +91,22 @@ public class BookDAO extends BaseDAO<Book> implements ResultSetExtractor<List<Bo
 					new Object[] { genre.getGenre_id(), book.getBookId() });
 		}
 	}
+	
+	public void deleteAuthorGenre(Book book) throws ClassNotFoundException, SQLException {
+		// TODO Auto-generated method stub
+		for (Author author : book.getAuthors()) {
+			jdbcTemplate.update("delete from tbl_book_authors where bookId=? and authorId=?",
+					new Object[] { book.getBookId(), author.getAuthorId() });
+		}
+		for (Genre genre : book.getGenres()) {
+			jdbcTemplate.update("delete from tbl_book_genres where genre_id=? and bookId=?",
+					new Object[] { genre.getGenre_id(), book.getBookId() });
+		}
+
+	}
 	public void updateBook(Book book) throws ClassNotFoundException, SQLException {
 
-		jdbcTemplate.update("update  tbl_book set bookTitle=? where bookId=?",
+		jdbcTemplate.update("update  tbl_book set title=? where bookId=?",
 				new Object[] { book.getTitle(), book.getBookId() });
 	}
 	public void updateBookByPublisherId(Book book) throws ClassNotFoundException, SQLException {
@@ -161,10 +175,10 @@ public class BookDAO extends BaseDAO<Book> implements ResultSetExtractor<List<Bo
 
 		return null;
 	}
-	public Book getBookByPK(Book book) {
+	public Book getBookByPK(Integer id)throws ClassNotFoundException, SQLException {
 
 		List<Book> books = jdbcTemplate.query("select * from tbl_book where bookId=?",
-				new Object[] { book.getBookId() }, this);
+				new Object[] { id }, this);
 		if (books != null) {
 			return books.get(0);
 		}
@@ -186,5 +200,7 @@ public class BookDAO extends BaseDAO<Book> implements ResultSetExtractor<List<Bo
 		}
 		return books;
 	}
+
+	
 
 }

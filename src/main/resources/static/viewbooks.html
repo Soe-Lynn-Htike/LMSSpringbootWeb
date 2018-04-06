@@ -33,7 +33,7 @@
 				<td>{{$index+1}}</td>
 				<td>{{book.title}}</td>
 				<td>{{book.publisher.publisherName}}</td>
-				<td><span ng-repeat="author in book.authors">{{author.authorName}}</span></td>
+				<td><span ng-repeat="author in book.authors">{{author.authorName}}|</span></td>
 				<td><span ng-repeat="genre in book.genres">{{genre.genre_name}} |</span></td>
 				<!-- <td><button type="button" class="btn btn-danger" ng-click="goToUpdate(a.authorId)">Edit</button></td> -->
 				<td><a href="#/admin/editbook/{{book.bookId}}">Edit</td>
