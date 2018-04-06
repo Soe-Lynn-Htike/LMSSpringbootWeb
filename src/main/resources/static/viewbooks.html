@@ -1,4 +1,44 @@
 <div class="container marketing" ng-controller="bookController">
-	<h3>List of Books in LMS:</h3>
-	   Coming to book Page
+	<h3>List of Authors in LMS:</h3>
+	<div class="input-group">
+      <input type="text" class="form-control" ng-model="searchString" ng-change="searchBooks()" placeholder="Search for...">
+      <!-- <span class="input-group-btn">
+        <button class="btn btn-default" type="button">Go!</button>
+      </span> -->
+  </div>
+	<br>
+		<div class="col-md-10">
+			<ul class="pagination">
+				<li><a href="" ng-click="pagination.prevPage()">&laquo;</a></li>
+				<li ng-repeat="n in [] | range: pagination.numPages"
+					ng-class="{active: n == pagination.page}"><a href=""
+					ng-click="pagination.toPageId(n)">{{n + 1}}</a></li>
+				<li><a href="" ng-click="pagination.nextPage()">&raquo;</a></li>
+			</ul>
+		</div>
+	<table class="table">
+		<thead class="thead-dark">
+			<tr>
+				<th>#</th>
+				<th>Book Name</th>
+				<th>Publisher Name</th>
+				<th>Author Name</th>
+				<th>Genre</th>
+				<th>Edit</th>
+				<th>Delete</th>
+			</tr>
+		</thead>
+		<tbody>
+			<tr ng-repeat="book in books | startFrom: pagination.page * pagination.perPage | limitTo: pagination.perPage">
+				<td>{{$index+1}}</td>
+				<td>{{book.title}}</td>
+				<td>{{book.publisher.publisherName}}</td>
+				<td><span ng-repeat="author in book.authors">{{author.authorName}}</span></td>
+				<td><span ng-repeat="genre in book.genres">{{genre.genre_name}} |</span></td>
+				<!-- <td><button type="button" class="btn btn-danger" ng-click="goToUpdate(a.authorId)">Edit</button></td> -->
+				<td><a href="#/admin/editbook/{{book.bookId}}">Edit</td>
+				<td><button type="button" class="btn btn-warning" ng-click="deleteBook(book.bookId)">Delete</button></td>
+			</tr>
+		</tbody>
+	</table>
 </div>

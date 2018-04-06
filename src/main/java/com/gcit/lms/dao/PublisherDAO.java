@@ -71,6 +71,10 @@ public class PublisherDAO extends BaseDAO<Publisher> implements ResultSetExtract
 
 	}
 	
+	public List<Publisher> readPublishersWithoutBook()throws ClassNotFoundException,SQLException {
+		return jdbcTemplate.query("select * from tbl_publisher tp where not Exists (select null from tbl_book b where b.pubId=tp.publisherId)",this);
+	}
+	
 	@Override
 	public List<Publisher> extractData(ResultSet rs) throws SQLException {
 		// TODO Auto-generated method stub
@@ -85,6 +89,9 @@ public class PublisherDAO extends BaseDAO<Publisher> implements ResultSetExtract
 		 }
 		 return publishers;
 	}
+
+
+	
 
 	
 

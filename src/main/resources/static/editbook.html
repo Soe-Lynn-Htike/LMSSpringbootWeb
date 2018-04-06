@@ -1,18 +1,18 @@
 <div class="container marketing">
-	<h3 class="text-center">Update details to  Author:</h3>
+	<h3 class="text-center">Update details to  Book:</h3>
 	<div class="col-md-12 col-xs-12">
 		<form>
 			<div class="form-group">
-				<label for="authorName">Update Author Name: </label> <input
-					type="text" class="form-control" ng-model="author.authorName" placeholder="Author Name">
+				<label for="authorName">Update Book Name: </label> <input
+					type="text" class="form-control" ng-model="book.title" placeholder="Book Name">
 			</div>
-			<div class="form-group">
+			<!-- <div class="form-group">
 				<label for="exampleFormControlSelect1">Choose Book</label>
 				<multiple-autocomplete ng-model="booklist"
 		 				object-property="title"
 		 				suggestions-arr="books">
 					</multiple-autocomplete>
-			</div>
+			</div> -->
 			<button type="button" class="btn btn-primary" ng-click="updateAuthor(author.authorId)">Update
 				Author</button>
 		</form>

@@ -277,6 +277,20 @@ public class AdminService extends BaseController {
 		}
 		return null;
 	}
+	
+	@RequestMapping(value = "readPublishersWithoutBook", method = RequestMethod.GET, produces = "application/json")
+	@Transactional
+	public List<Publisher> readPublishersWithoutBook() throws SQLException {
+		List<Publisher> publishers = new ArrayList<>();
+		try {
+			publishers = publisherdao.readPublishersWithoutBook();
+			return publishers;
+		} catch (ClassNotFoundException | SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return null;
+	}
 
 	@RequestMapping(value = "readPublisherByName/{searchPublisher}", method = RequestMethod.GET, produces = "application/json")
 	@Transactional

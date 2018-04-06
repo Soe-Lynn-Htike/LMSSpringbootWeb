@@ -44,6 +44,8 @@ lmsApp.config(["$routeProvider", function($routeProvider,$locationProvider){
 		templateUrl: "genre.html"
 	}).when("/admin/viewgenres", {
 		templateUrl: "viewgenres.html"
+	}).when("/admin/addgenre", {
+		templateUrl: "addgenre.html"
 	}).when("/admin/editgenre/:genreId", {
 		templateUrl: "editgenre.html",
 		controller: "GenreDetailController"

@@ -1,0 +1,21 @@
+<div class="container marketing" ng-controller="genreController">
+	<h3 class="text-center">Enter details to Add Genre:</h3>
+	<div class="col-md-12 col-xs-12">
+		<form>
+			<div class="form-group">
+				<label for="genreName">Enther Genre Name: </label> <input
+					type="text" class="form-control" ng-model="genre.genre_name" placeholder="Genre Name">
+            </div>
+            <div class="form-group">
+				<label for="exampleFormControlSelect1">Choose Book</label>
+				<multiple-autocomplete ng-model="genre.books"
+     object-property="title" 
+     suggestions-arr="books">
+	 		</multiple-autocomplete>
+			</div>
+      
+			<button type="button" class="btn btn-primary" ng-click="saveGenre()">Save
+				Genre</button>
+		</form>
+	</div>
+</div>

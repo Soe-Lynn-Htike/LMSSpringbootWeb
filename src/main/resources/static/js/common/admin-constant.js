@@ -6,6 +6,7 @@ lmsApp.constant("adminConstants",{
       DELETE_AUTHOR_BOOKS : "http://localhost:8080/lms/updateAuthorBook",
       INITIALIZE_PUBLISHER : "http://localhost:8080/lms/initPublisher",
       GET_ALL_PUBSLISHERS : "http://localhost:8080/lms/readPublishers",
+      GET_PUBLISHERS_WITHOUT_BOOK : "http://localhost:8080/lms/readPublishersWithoutBook",
       SAVE_ALL_PUBLISHERS  : "http://localhost:8080/lms/updatePublisher",
       INITIALIZE_BOOK : "http://localhost:8080/lms/initBook",
       GET_ALL_BOOKS : "http://localhost:8080/lms/readBooks",

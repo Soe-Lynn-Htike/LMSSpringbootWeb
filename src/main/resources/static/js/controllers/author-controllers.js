@@ -66,4 +66,5 @@ lmsApp.controller("AuthorDetailController",function($scope, $http, $window, $loc
 			$window.location.href = "#/admin/viewauthors"
 		})
 	}
+	
 })
