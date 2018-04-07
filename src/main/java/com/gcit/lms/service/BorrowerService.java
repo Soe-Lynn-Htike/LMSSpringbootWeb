@@ -25,6 +25,7 @@ import com.gcit.lms.dao.BorrowerDAO;
 import com.gcit.lms.dao.BranchDAO;
 import com.gcit.lms.dao.GenreDAO;
 import com.gcit.lms.dao.PublisherDAO;
+import com.gcit.lms.entity.Author;
 import com.gcit.lms.entity.Book;
 import com.gcit.lms.entity.BookCopies;
 import com.gcit.lms.entity.BookLoan;
@@ -88,6 +89,7 @@ public class BorrowerService extends BaseController {
 		}
 		return null;
 	}*/
+	
 	
 	
 	@RequestMapping(value = "checkOutBook", method = RequestMethod.POST, consumes = "application/json")

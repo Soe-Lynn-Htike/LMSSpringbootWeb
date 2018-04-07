@@ -1,0 +1,13 @@
+<div class="container marketing" ng-controller="BorrowerCheckController">
+	<h3 class="text-center">Borrower Service</h3>
+	<div class="col-md-12 col-xs-12">
+		<form>
+      <div class="form-group">
+        <label for="publisherName">Enter Card No: </label> <input
+          type="text" class="form-control" ng-model="borrower.cardNo" placeholder="Borrower CardNo">
+      </div>
+			<button type="button" class="btn btn-primary" ng-click="checkBorrower(borrower.cardNo)">Check
+				Borrower</button>
+		</form>
+	</div>
+</div>

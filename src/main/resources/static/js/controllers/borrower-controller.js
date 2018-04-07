@@ -54,4 +54,69 @@ lmsApp.controller("BorrowerDetailController",function($scope,$http,$location,$ro
         })
       }
     
+})
+
+lmsApp.controller("BorrowerCheckController",function($scope, $http, $window, $location,lmsFactory,adminConstants,$routeParams,Pagination,$filter){
+    
+  if($location.path() ==='/borrower/checkborrower'){
+    lmsFactory.readAllObjects("http://localhost:8080/lms/initBorrower").then(function(data){
+      $scope.borrower = data;
     })
+  }
+  else{
+
+    lmsFactory.readAllObjects("http://localhost:8080/lms/readBorrowerByCardNo/"+$routeParams.cardNo).then(function(data){
+      $scope.borrower = data;
+  })
+  }
+    
+    
+    $scope.checkBorrower=function(cardNo){
+      lmsFactory.readAllObjects("http://localhost:8080/lms/readBorrowerByCardNo/"+cardNo).then(function(data){
+          $scope.borrower = data;
+          if($scope.borrower.cardNo === null){
+               alert("Borrower doesnt exsits");
+          }else{
+            $window.location.href = "#/borrower/"+$scope.borrower.cardNo+"/borrowerservice";
+          }
+      })
+    }
+})
+
+lmsApp.controller("CheckOutController",function($scope, $http, $window, $location,lmsFactory,adminConstants,Pagination,$filter,$routeParams){
+    
+  lmsFactory.readAllObjects("http://localhost:8080/lms/initBookLoan").then(function(data){
+    $scope.bookloan = data;
+  })
+  lmsFactory.readAllObjects("http://localhost:8080/lms/readBorrowerByCardNo/"+$routeParams.cardNo).then(function(data){
+      $scope.borrower = data;
+  })
+
+  lmsFactory.readAllObjects(adminConstants.GET_ALL_BRANCHES).then(function(data){
+      $scope.branches = data;
+    })
+
+    $scope.checkOutBookByBranch = function(selectedBranch){
+      $scope.bookloan.branchId = selectedBranch.branchId;
+      lmsFactory.readAllObjects("http://localhost:8080/lms/readBooksByBranch/"+selectedBranch.branchId).then(function(data){
+        $scope.books = data;
+      })
+    }
+
+    $scope.addBookCheckOut = function(selectedBook){
+        $scope.bookloan.bookId = selectedBook.bookId;
+    }
+
+    $scope.checkOutBook = function(cardNo){
+      $scope.bookloan.cardNo = cardNo;
+      
+      lmsFactory.saveAllObjects("http://localhost:8080/lms/checkOutBook", $scope.bookloan).then(function(data){
+        $window.location.href = "#/borrower/"+cardNo+"/borrowerservice";
+      })
+    }
+
+})
+
+lmsApp.controller("ReturnBookController",function($scope, $http, $window, $location,lmsFactory,adminConstants,Pagination,$filter){
+  
+})

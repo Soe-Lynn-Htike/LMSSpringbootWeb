@@ -41,6 +41,8 @@ public class BorrowerDAO extends BaseDAO<Borrower> implements ResultSetExtractor
 		borrowers = jdbcTemplate.query("select * from tbl_borrower where cardNo=?", new Object[] { cardNo }, this);
 		if (!borrowers.isEmpty()) {
 			return borrowers.get(0);
+		}else if(borrowers.isEmpty()) {
+			return new Borrower();
 		}
 		return null;
 		
@@ -59,8 +61,7 @@ public class BorrowerDAO extends BaseDAO<Borrower> implements ResultSetExtractor
 	public List<Borrower> extractData(ResultSet rs) throws SQLException {
 		// TODO Auto-generated method stub
 		List<Borrower> borrowers = new ArrayList<>();
-	
-			
+
 			while (rs.next()) {
 				Borrower a = new Borrower();
 				a.setCardNo(rs.getInt("cardNo"));
@@ -70,6 +71,7 @@ public class BorrowerDAO extends BaseDAO<Borrower> implements ResultSetExtractor
 				borrowers.add(a);
 			}
 			return borrowers;
+
 
 		// check error for cardno one
 		
