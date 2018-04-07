@@ -52,6 +52,15 @@ lmsApp.config(["$routeProvider", function($routeProvider,$locationProvider){
 	}).when("/admin/editgenre/:genreId", {
 		templateUrl: "editgenre.html",
 		controller: "GenreDetailController"
+	}).when("/admin/borrower", {
+		templateUrl: "borrower.html"
+	}).when("/admin/viewborrowers", {
+		templateUrl: "viewborrowers.html"
+	}).when("/admin/addborrower", {
+		templateUrl: "addborrower.html"
+	}).when("/admin/editborrower/:cardNo", {
+		templateUrl: "editborrower.html",
+		controller: "BorrowerDetailController"
 	})
 
 	// $locationProvider.html5Mode({

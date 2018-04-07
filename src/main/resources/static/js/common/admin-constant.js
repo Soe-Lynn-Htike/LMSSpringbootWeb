@@ -21,5 +21,6 @@ lmsApp.constant("adminConstants",{
       DELETE_BOOK_GENRE :"http://localhost:8080/lms/updateGenreBook",
       INITIALIZE_BOOKCOPIES : "http://localhost:8080/lms/initBookCopies",
       GET_BOOK_COPIES : "http://localhost:8080/lms/showNoOfCopies",
-      SET_BOOK_COPIES :"http://localhost:8080/lms/updateNoOfCopies"
+      SET_BOOK_COPIES :"http://localhost:8080/lms/updateNoOfCopies",
+      GET_ALL_BORROWERS : "http://localhost:8080/lms/readBorrowers"
 })

@@ -29,7 +29,7 @@ public class BorrowerDAO extends BaseDAO<Borrower> implements ResultSetExtractor
 		jdbcTemplate.update("insert into tbl_borrower (name,address,phone) VALUES (?,?,?)", new Object[] { borrower.getName(),borrower.getAddress(),borrower.getPhone() });
 	}
 	public void updateBorrower(Borrower borrower) throws ClassNotFoundException, SQLException {
-		jdbcTemplate.update("update tbl_borrower set name=?, address=?, phone=? where cardNo=?",new Object[] {borrower.getName(),borrower.getAddress(),borrower.getPhone()});
+		jdbcTemplate.update("update tbl_borrower set name=?, address=?, phone=? where cardNo=?",new Object[] {borrower.getName(),borrower.getAddress(),borrower.getPhone(),borrower.getCardNo()});
 	}
 	public void deleteBorrower(Borrower borrower) throws ClassNotFoundException, SQLException {
 		jdbcTemplate.update("delete  from tbl_borrower where cardNo=?",new Object[] {borrower.getCardNo()});

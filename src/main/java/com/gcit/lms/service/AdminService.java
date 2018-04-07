@@ -451,6 +451,11 @@ public class AdminService extends BaseController {
 			// display a meaningful user
 		}
 	}
+	
+	@RequestMapping(value="initBorrower", method=RequestMethod.GET, produces="application/json" )
+	public Borrower initBorrower() throws SQLException {
+		return new Borrower();
+	}
 
 	// update Borrower
 	@RequestMapping(value = "updateBorrower", method = RequestMethod.POST, consumes = "application/json")
