@@ -117,6 +117,38 @@ lmsApp.controller("CheckOutController",function($scope, $http, $window, $locatio
 
 })
 
-lmsApp.controller("ReturnBookController",function($scope, $http, $window, $location,lmsFactory,adminConstants,Pagination,$filter){
-  
+lmsApp.controller("ReturnBookController",function($scope, $http, $window, $location,lmsFactory,adminConstants,Pagination,$filter,$routeParams){
+ 
+  lmsFactory.readAllObjects("http://localhost:8080/lms/initBookLoan").then(function(data){
+    $scope.bookloan = data;
+  })
+  lmsFactory.readAllObjects("http://localhost:8080/lms/readBorrowerByCardNo/"+$routeParams.cardNo).then(function(data){
+      $scope.borrower = data;
+  })
+
+    lmsFactory.readAllObjects(adminConstants.GET_ALL_BRANCHES).then(function(data){
+      $scope.branches = data;
+    })
+
+    $scope.readBooksByBranch = function(selectedBranch){
+          $scope.bookloan.branchId = selectedBranch.branchId;
+          $scope.bookloan.cardNo = $scope.borrower.cardNo;
+          lmsFactory.saveAllObjects("http://localhost:8080/lms/checkBooksByBranchByCard",$scope.bookloan).then(function(data){
+          $scope.books = data;
+         })
+    }
+
+    $scope.addBookCheckOut = function(selectedBook){
+      $scope.bookloan.bookId = selectedBook.bookId;
+    }
+    $scope.returnBook = function(bookId){
+        if($scope.selectedBook === undefined || $scope.selectedBranch === undefined){
+              alert("Please choose branch and book");
+        }else{
+          lmsFactory.saveAllObjects("http://localhost:8080/lms/returnBook",$scope.bookloan).then(function(data){
+            $window.location.href = "#/borrower/"+cardNo+"/borrowerservice";
+           })
+        }
+       
+    }
 })

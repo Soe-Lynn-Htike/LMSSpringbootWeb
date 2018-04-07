@@ -126,13 +126,27 @@ public class BorrowerService extends BaseController {
 		}
 	}
 	
-	@RequestMapping(value = "readBooksReturn/{cardNo}", method = RequestMethod.GET, consumes = "application/json")
+	@RequestMapping(value = "checkBorrowedBooksByCardNo/{cardNo}", method = RequestMethod.GET,produces="application/json")
 	@Transactional
-	public List<Book> readBooksReturn (@PathVariable String cardNo) throws SQLException {
-
+	public List<Book> checkBorrowedBooksByCardNo (@PathVariable String cardNo) throws SQLException {
+			List<Book> books = new ArrayList<>();
 		try {
 
-			return bookdao.readBooksByBorrower(Integer.parseInt(cardNo));
+			books = bookdao.readBooksByBorrower(Integer.parseInt(cardNo));
+			return books;
+		} catch (ClassNotFoundException | SQLException e) {
+			e.printStackTrace();
+		}
+		return null;
+	}
+	
+	@RequestMapping(value = "checkBooksByBranchByCard", method = RequestMethod.POST,produces="application/json")
+	@Transactional
+	public List<Book> checkBorrowedBooksByCardNo (@RequestBody BookLoan bookLoan) throws SQLException {
+			List<Book> books = new ArrayList<>();
+		try {
+				books =bookdao.readBookByBranchByCardNo(bookLoan);
+			return books;
 		} catch (ClassNotFoundException | SQLException e) {
 			e.printStackTrace();
 		}

@@ -1,0 +1,30 @@
+<div class="container marketing">
+	<h3 class="text-center">Borrower {{borrower.name}}</h3>
+	<div class="col-md-12 col-xs-12">
+	
+        <div class="col-md-12 col-xs-12">
+            <div class="form-group">
+				<label for="exampleFormControlSelect1">Select Branch</label>
+				<div class="form-item-container">
+					<select style="height:34px;" class="form-control selectpicker" ng-change="readBooksByBranch(selectedBranch)" ng-model="selectedBranch"  ng-options="branch.branchName for branch in branches">
+					</select>
+				</div>
+				
+			</div>
+        </div>
+        <div class="col-md-12 col-xs-12" ng-if="books">
+            <div class="form-group">
+				<label for="exampleFormControlSelect1">Select Book</label>
+				<div class="form-item-container">
+					<select style="height:34px;" class="form-control selectpicker" ng-change="addBookCheckOut(selectedBook)" ng-model="selectedBook"  ng-options="book.title for book in books">
+					</select>
+				</div>
+				
+			</div>
+        </div>
+        <div class="col-md-12 col-xs-12">
+            <button type="button" class="btn btn-primary" ng-click="returnBook(borrower.cardNo)">Return
+				Book</button>
+        </div>
+	</div>
+</div>
