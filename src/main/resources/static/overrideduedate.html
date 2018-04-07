@@ -1,0 +1,41 @@
+<div class="container marketing" ng-controller="CheckBorrowerController">
+	<h3>List of Borrowers in LMS:</h3>
+	<div class="input-group">
+      <input type="text" class="form-control" ng-model="searchString" ng-change="searchBorrowers()" placeholder="Search for...">
+      <!-- <span class="input-group-btn">
+        <button class="btn btn-default" type="button">Go!</button>
+      </span> -->
+  </div>
+	<br>
+		<div class="col-md-10">
+			<ul class="pagination">
+				<li><a href="" ng-click="pagination.prevPage()">&laquo;</a></li>
+				<li ng-repeat="n in [] | range: pagination.numPages"
+					ng-class="{active: n == pagination.page}"><a href=""
+					ng-click="pagination.toPageId(n)">{{n + 1}}</a></li>
+				<li><a href="" ng-click="pagination.nextPage()">&raquo;</a></li>
+			</ul>
+	</div>
+	<table class="table">
+		<thead class="thead-dark">
+			<tr>
+				<th>#</th>
+				<th>Borrower Name</th>
+				<th>Borrower Address</th>
+                <th>Borrower Phone</th>
+				<th>Override Due Date</th>
+			</tr>
+		</thead>
+		<tbody>
+			<tr ng-repeat="borrower in borrowers | startFrom: pagination.page * pagination.perPage | limitTo: pagination.perPage">
+				<td>{{$index+1}}</td>
+				<td>{{borrower.name}}</td>
+        <td>{{borrower.address}}</td>
+        <td>{{borrower.phone}}</td>
+				<!-- <td><span ng-repeat="b in a.books">{{b.title}} |</span></td> -->
+				<!-- <td><button type="button" class="btn btn-danger" ng-click="goToUpdate(a.authorId)">Edit</button></td> -->
+				<td><a href="#/admin/overrideduedate/{{borrower.cardNo}}">Edit</td>
+			</tr>
+		</tbody>
+	</table>
+</div>

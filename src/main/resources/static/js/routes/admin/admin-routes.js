@@ -61,6 +61,13 @@ lmsApp.config(["$routeProvider", function($routeProvider,$locationProvider){
 	}).when("/admin/editborrower/:cardNo", {
 		templateUrl: "editborrower.html",
 		controller: "BorrowerDetailController"
+	}).when("/admin/overrideduedate", {
+		templateUrl: "overrideduedate.html"
+	}).when("/admin/overrideduedate", {
+		templateUrl: "overrideduedate.html"
+	}).when("/admin/overrideduedate/:cardNo", {
+		templateUrl: "editoverrideduedate.html",
+		controller: "OverrideDueDateController"
 	})
 
 	// $locationProvider.html5Mode({

@@ -626,7 +626,55 @@ public class AdminService extends BaseController {
 
 		}
 	}
-
+	
+	@RequestMapping(value = "readBranchByBorrower/{cardNo}", method = RequestMethod.GET, produces = "application/json")
+	@Transactional
+	public List<Branch> readBranchByBorrower(@PathVariable String cardNo) throws SQLException {
+		List<Branch> branches = new ArrayList<>();
+		try {
+			branches = branchdao.readBranchByBorrower(Integer.parseInt(cardNo));
+			
+			return branches;
+		} catch (ClassNotFoundException | SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return null;
+	}
+	
+	@RequestMapping(value = "readBookByBorrower/{cardNo}", method = RequestMethod.GET, produces = "application/json")
+	@Transactional
+	public List<Book> readBookByBorrower(@PathVariable String cardNo) throws SQLException {
+		List<Book> books = new ArrayList<>();
+		try {
+			books = bookdao.readBooksByBorrower(Integer.parseInt(cardNo));
+			
+			return books;
+		} catch (ClassNotFoundException | SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return null;
+	}
+	
+	@RequestMapping(value="initBookLoan", method=RequestMethod.GET, produces="application/json" )
+	public BookLoan initBookLoan() throws SQLException {
+		return new BookLoan();
+	}
+	
+	
+	@RequestMapping(value = "getBooksByBranchByCardNo", method = RequestMethod.POST, consumes = "application/json")
+	@Transactional
+	public List<Book> getBooksByBranchByCardNo(@RequestBody BookLoan bookLoan) throws SQLException {
+		List<Book> books = new ArrayList<>();
+		try {
+			books = bookdao.readBookByBranchByCardNo(bookLoan);
+			return books;
+		} catch (ClassNotFoundException | SQLException e) {
+			e.printStackTrace();
+		}
+		return null;
+	}
 	// override Book Loan Due Date
 	@RequestMapping(value = "overrideBookLoanDueDate", method = RequestMethod.POST, consumes = "application/json")
 	@Transactional

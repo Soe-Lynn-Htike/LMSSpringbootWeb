@@ -21,6 +21,7 @@ import org.springframework.stereotype.Component;
 
 import com.gcit.lms.entity.Author;
 import com.gcit.lms.entity.Book;
+import com.gcit.lms.entity.BookLoan;
 import com.gcit.lms.entity.Borrower;
 import com.gcit.lms.entity.Branch;
 import com.gcit.lms.entity.Genre;
@@ -121,7 +122,7 @@ public class BookDAO extends BaseDAO<Book> implements ResultSetExtractor<List<Bo
 
 	public List<Book> readBooksByBorrower(Integer cardNo)throws ClassNotFoundException, SQLException {
 		return jdbcTemplate.query(
-				"select * from tbl_book where bookId IN (select bookId from tbl_book_loans where cardNo =?)",
+				"select * from tbl_book where bookId IN (select bookId from tbl_book_loans where cardNo =? and  dateIn IS NULL)",
 				new Object[] { cardNo }, this);
 	}
 
@@ -174,6 +175,10 @@ public class BookDAO extends BaseDAO<Book> implements ResultSetExtractor<List<Bo
 		}
 
 		return null;
+	}
+	
+	public List<Book> readBookByBranchByCardNo(BookLoan bookLoan)throws ClassNotFoundException, SQLException {
+		return jdbcTemplate.query("select  b.* from tbl_book b inner join tbl_book_loans tbl on b.bookId = tbl.bookId inner join tbl_library_branch tlb on tlb.branchId = tbl.branchId inner join tbl_borrower tb on tb.cardNo = tbl.cardNo where tlb.branchId = ? and tb.cardNo=? and tbl.dateIn IS NULL",new Object[] {bookLoan.getBranchId(),bookLoan.getCardNo()} ,this);
 	}
 	public Book getBookByPK(Integer id)throws ClassNotFoundException, SQLException {
 
