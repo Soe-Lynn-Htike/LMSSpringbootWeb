@@ -56,7 +56,7 @@ lmsApp.controller("BorrowerDetailController",function($scope,$http,$location,$ro
     
 })
 
-lmsApp.controller("BorrowerCheckController",function($scope, $http, $window, $location,lmsFactory,adminConstants,$routeParams,Pagination,$filter){
+lmsApp.controller("BorrowerCheckController",function($scope, $http, $window, $location,lmsFactory,adminConstants,$routeParams,Pagination,$filter,ngNotify){
     
   if($location.path() ==='/borrower/checkborrower'){
     lmsFactory.readAllObjects("http://localhost:8080/lms/initBorrower").then(function(data){
@@ -72,14 +72,29 @@ lmsApp.controller("BorrowerCheckController",function($scope, $http, $window, $lo
     
     
     $scope.checkBorrower=function(cardNo){
-      lmsFactory.readAllObjects("http://localhost:8080/lms/readBorrowerByCardNo/"+cardNo).then(function(data){
+      if(cardNo ===null){
+        ngNotify.set('Please Enter card Number', {
+          theme: 'pitchy',
+          type : 'warn',
+          position: 'top',
+          sticky: true
+      });
+      }else{
+        lmsFactory.readAllObjects("http://localhost:8080/lms/readBorrowerByCardNo/"+cardNo).then(function(data){
           $scope.borrower = data;
           if($scope.borrower.cardNo === null){
-               alert("Borrower doesnt exsits");
+            ngNotify.set('Borrower doesnt exists', {
+              theme: 'pitchy',
+              type : 'warn',
+              position: 'top',
+              sticky: true
+          });
           }else{
             $window.location.href = "#/borrower/"+$scope.borrower.cardNo+"/borrowerservice";
           }
       })
+      }
+      
     }
 })
 
