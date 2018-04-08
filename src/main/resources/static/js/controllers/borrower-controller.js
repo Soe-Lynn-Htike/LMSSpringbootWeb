@@ -74,20 +74,26 @@ lmsApp.controller("BorrowerCheckController",function($scope, $http, $window, $lo
     $scope.checkBorrower=function(cardNo){
       if(cardNo ===null){
         ngNotify.set('Please Enter card Number', {
-          theme: 'pitchy',
-          type : 'warn',
-          position: 'top',
-          sticky: true
+          theme: 'pure',
+					position: 'top',
+					duration: 1000,
+					type: 'warn',
+					sticky: false,
+					button: true,
+					html: false
       });
       }else{
         lmsFactory.readAllObjects("http://localhost:8080/lms/readBorrowerByCardNo/"+cardNo).then(function(data){
           $scope.borrower = data;
           if($scope.borrower.cardNo === null){
             ngNotify.set('Borrower doesnt exists', {
-              theme: 'pitchy',
-              type : 'warn',
+              theme: 'pure',
               position: 'top',
-              sticky: true
+              duration: 1000,
+              type: 'warn',
+              sticky: false,
+              button: true,
+              html: false
           });
           }else{
             $window.location.href = "#/borrower/"+$scope.borrower.cardNo+"/borrowerservice";
@@ -98,7 +104,7 @@ lmsApp.controller("BorrowerCheckController",function($scope, $http, $window, $lo
     }
 })
 
-lmsApp.controller("CheckOutController",function($scope, $http, $window, $location,lmsFactory,adminConstants,Pagination,$filter,$routeParams){
+lmsApp.controller("CheckOutController",function($scope, $http, $window, $location,lmsFactory,adminConstants,Pagination,$filter,$routeParams,ngNotify){
     
   lmsFactory.readAllObjects("http://localhost:8080/lms/initBookLoan").then(function(data){
     $scope.bookloan = data;
@@ -158,7 +164,15 @@ lmsApp.controller("ReturnBookController",function($scope, $http, $window, $locat
     }
     $scope.returnBook = function(bookId){
         if($scope.selectedBook === undefined || $scope.selectedBranch === undefined){
-              alert("Please choose branch and book");
+          ngNotify.set('Please choose branch and book', {
+            theme: 'pure',
+            position: 'top',
+            duration: 1000,
+            type: 'warn',
+            sticky: false,
+            button: true,
+            html: false
+        });
         }else{
           lmsFactory.saveAllObjects("http://localhost:8080/lms/returnBook",$scope.bookloan).then(function(data){
             $window.location.href = "#/borrower/"+cardNo+"/borrowerservice";
