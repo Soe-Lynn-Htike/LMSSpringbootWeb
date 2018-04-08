@@ -68,6 +68,15 @@ public class BookCopiesDAO extends BaseDAO<BookCopies> implements ResultSetExtra
 	public void returnBookCopies(BookLoan bookLoan) throws ClassNotFoundException,SQLException {
 		jdbcTemplate.update("update tbl_book_copies set noOfCopies = noOfCopies+1 where bookId = ? and branchId = ?",new Object[] { bookLoan.getBookId(), bookLoan.getBranchId() });		
 	}
+	public void createDefaultBookCopies(Integer branchId, List<Book> books)throws ClassNotFoundException,SQLException {
+		// TODO Auto-generated method stub
+		Integer bookcopies = 0;
+		for (Book book : books) {
+			jdbcTemplate.update("insert into tbl_book_copies VALUES (?, ?,?)",
+					new Object[] {book.getBookId(), branchId, bookcopies});
+		}
+		
+	}
 	/*public BookCopies readOne(int bookId, int branchId) throws Exception { 
  		List<BookCopies> bookCopies = (List<BookCopies>) readAll("select * from tbl_book_copies where bookId = ? " 
  				+ "and branchId = ?", new Object[] {bookId, branchId}); 
@@ -91,4 +100,5 @@ public class BookCopiesDAO extends BaseDAO<BookCopies> implements ResultSetExtra
 		}
 		return bookcopies;
 	}
+	
 }

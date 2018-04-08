@@ -536,12 +536,15 @@ public class AdminService extends BaseController {
 	@RequestMapping(value = "updateBranch", method = RequestMethod.POST, consumes = "application/json")
 	@Transactional
 	public void updateBranch(@RequestBody Branch branch) throws SQLException {
+		List<Book> books = new ArrayList<>();
 		try {
 			if (branch.getBranchId() != null && branch.getBranchName() != null && branch.getBranchAddress() != null) {
 				branchdao.updateBranch(branch);
 			} else if (branch.getBranchId() == null && branch.getBranchName() != null
 					&& branch.getBranchAddress() != null) {
-				branchdao.createBranch(branch);
+				Integer branchId = branchdao.createBranchWithPK(branch);
+				books = bookdao.readBooks("");
+				bookCopiesdao.createDefaultBookCopies(branchId,books);
 			} else {
 				branchdao.deleteBranch(branch);
 			}

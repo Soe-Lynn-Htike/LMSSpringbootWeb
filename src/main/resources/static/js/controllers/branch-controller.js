@@ -1,5 +1,5 @@
 "use strict";
-lmsApp.controller("branchController",function($scope, $http, $window, $location,lmsFactory,adminConstants,Pagination,$filter){
+lmsApp.controller("branchController",function($scope, $http, $window, $location,lmsFactory,adminConstants,Pagination,$filter,ngNotify){
   if($location.path() == '/admin/addbranch'){
     lmsFactory.readAllObjects(adminConstants.INITIALIZE_BRANCH).then(function(data){
       $scope.branch = data;
@@ -14,9 +14,31 @@ lmsApp.controller("branchController",function($scope, $http, $window, $location,
   }
 
   $scope.saveBranch = function(){
-    lmsFactory.saveAllObjects(adminConstants.SAVE_ALL_BRANCHES, $scope.branch).then(function(data){
-    $window.location.href = "#/admin/viewbranches";
-  })
+    if($scope.branch.branchName === null || $scope.branch.branchAddress === null){
+      ngNotify.set('Fill up Library branch information ', {
+        theme: 'pure',
+        position: 'top',
+        duration: 1000,
+        type: 'warn',
+        sticky: false,
+        button: true,
+        html: false
+    });
+    }else{
+      lmsFactory.saveAllObjects(adminConstants.SAVE_ALL_BRANCHES, $scope.branch).then(function(data){
+        ngNotify.set('Library branch is created successfully', {
+          theme: 'pure',
+          position: 'top',
+          duration: 1000,
+          type: 'info',
+          sticky: false,
+          button: true,
+          html: false
+      });
+        $window.location.href = "#/admin/viewbranches";
+      })
+    }
+    
   }
 
   $scope.searchBranches = function(){
@@ -36,20 +58,51 @@ lmsApp.controller("branchController",function($scope, $http, $window, $location,
 				$scope.branches = data;
 				$scope.pagination = Pagination.getNew(10);
 				$scope.pagination.numPages = Math.ceil($scope.branches.length/$scope.pagination.perPage);
-			})
+      })
+      ngNotify.set('Library branch is deleted successfully', {
+        theme: 'pure',
+        position: 'top',
+        duration: 1000,
+        type: 'info',
+        sticky: false,
+        button: true,
+        html: false
+    });
 			$window.location.href = "#/admin/viewbranches";
 		})
 	}
 })
 
-lmsApp.controller("BranchDetailController",function($scope, $http, $window, $location,lmsFactory,adminConstants,Pagination,$filter,$routeParams){
+lmsApp.controller("BranchDetailController",function($scope, $http, $window, $location,lmsFactory,adminConstants,Pagination,$filter,$routeParams,ngNotify){
   lmsFactory.readAllObjects("http://localhost:8080/lms/readBranchById/"+$routeParams.branchId).then(function(data){
       $scope.branch = data;
   })
-  $scope.updateBranch = function(authorId){
-    lmsFactory.saveAllObjects(adminConstants.SAVE_ALL_BRANCHES,$scope.branch).then(function(data){
-      $window.location.href = "#/admin/viewbranches"
-    })
+  $scope.updateBranch = function(branchId){
+    if($scope.branch.branchName === "" || $scpoe.branch.branchAddress === ""){
+      ngNotify.set('Library branch information cannot be blanked', {
+        theme: 'pure',
+        position: 'top',
+        duration: 1000,
+        type: 'warn',
+        sticky: false,
+        button: true,
+        html: false
+    });
+    }else{
+      lmsFactory.saveAllObjects(adminConstants.SAVE_ALL_BRANCHES,$scope.branch).then(function(data){
+        ngNotify.set('Library branch information updated', {
+          theme: 'pure',
+          position: 'top',
+          duration: 1000,
+          type: 'info',
+          sticky: false,
+          button: true,
+          html: false
+      });
+        $window.location.href = "#/admin/viewbranches"
+      })
+    }
+    
   }
 })
 
@@ -70,7 +123,7 @@ lmsApp.controller("LibrarianBranchController",function($scope, $http, $window, $
     }
 })
 
-lmsApp.controller("LibrarianBranchDetailController",function($scope, $http, $window, $location,lmsFactory,adminConstants,Pagination,$filter,$routeParams){
+lmsApp.controller("LibrarianBranchDetailController",function($scope, $http, $window, $location,lmsFactory,adminConstants,Pagination,$filter,$routeParams,ngNotify){
   $scope.showbookcopy = false;
   lmsFactory.readAllObjects("http://localhost:8080/lms/readBranchById/"+$routeParams.branchId).then(function(data){
         $scope.branch = data;
