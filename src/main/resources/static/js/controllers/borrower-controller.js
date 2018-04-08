@@ -1,5 +1,5 @@
 "use strict";
-lmsApp.controller("borrowerController",function($scope, $http, $window, $location,lmsFactory,adminConstants,Pagination,$filter){
+lmsApp.controller("borrowerController",function($scope, $http, $window, $location,lmsFactory,adminConstants,Pagination,$filter,ngNotify){
     if($location.path() === '/admin/addborrower'){
         lmsFactory.readAllObjects("http://localhost:8080/lms/initBorrower").then(function(data){
           $scope.borrower = data;
@@ -31,27 +31,80 @@ lmsApp.controller("borrowerController",function($scope, $http, $window, $locatio
                 $scope.pagination = Pagination.getNew(10);
                 $scope.pagination.numPages = Math.ceil($scope.borrowers.length/$scope.pagination.perPage);
             })
+            ngNotify.set('Borrower deleted successfully', {
+              theme: 'pure',
+              position: 'top',
+              duration: 1000,
+              type: 'info',
+              sticky: false,
+              button: true,
+              html: false
+          });
             $window.location.href = "#/admin/viewborrowers";
         })
     }
 
       $scope.saveBorrower = function(){
-        lmsFactory.saveAllObjects("http://localhost:8080/lms/updateBorrower", $scope.borrower).then(function(data){
-        $window.location.href = "#/admin/viewborrowers";
-      })
+        if($scope.borrower.name === null || $scope.borrower.address === null || $scope.borrower.phone === null){
+            ngNotify.set('Fill up borrower information ', {
+              theme: 'pure',
+              position: 'top',
+              duration: 1000,
+              type: 'warn',
+              sticky: false,
+              button: true,
+              html: false
+          });
+        }else{
+          lmsFactory.saveAllObjects("http://localhost:8080/lms/updateBorrower", $scope.borrower).then(function(data){
+            ngNotify.set('Borrower created successfully', {
+              theme: 'pure',
+              position: 'top',
+              duration: 1000,
+              type: 'info',
+              sticky: false,
+              button: true,
+              html: false
+          });
+            $window.location.href = "#/admin/viewborrowers";
+          })
+        }
+        
       }
 })
 
-lmsApp.controller("BorrowerDetailController",function($scope,$http,$location,$routeParams,$window,lmsFactory,adminConstants,Pagination){
+lmsApp.controller("BorrowerDetailController",function($scope,$http,$location,$routeParams,$window,lmsFactory,adminConstants,Pagination,ngNotify){
 
     lmsFactory.readAllObjects("http://localhost:8080/lms/readBorrowerByCardNo/"+$routeParams.cardNo).then(function(data){
           $scope.borrower = data;
       })
     
       $scope.updateBorrower = function(cardNo){
-        lmsFactory.saveAllObjects("http://localhost:8080/lms/updateBorrower",$scope.borrower).then(function(data){
-          $window.location.href = "#/admin/viewborrowers";
-        })
+        if($scope.borrower.name === "" || $scope.borrower.phone === "" || $scope.borrower.address ===''){
+            ngNotify.set('Borrower name , phone and address is blank', {
+              theme: 'pure',
+              position: 'top',
+              duration: 1000,
+              type: 'warn',
+              sticky: false,
+              button: true,
+              html: false
+          });
+        }else{
+          lmsFactory.saveAllObjects("http://localhost:8080/lms/updateBorrower",$scope.borrower).then(function(data){
+            ngNotify.set('Borrower info is updated', {
+              theme: 'pure',
+              position: 'top',
+              duration: 1000,
+              type: 'info',
+              sticky: false,
+              button: true,
+              html: false
+          });
+            $window.location.href = "#/admin/viewborrowers";
+          })
+        }
+       
       }
     
 })

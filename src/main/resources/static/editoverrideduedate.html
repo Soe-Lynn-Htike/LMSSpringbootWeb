@@ -2,7 +2,10 @@
 	<h3 class="text-center">Borrower {{borrower.name}}</h3>
 	<div class="col-md-12 col-xs-12">
 	
-        <div class="col-md-12 col-xs-12">
+		<div class="jumbotron" ng-if="showmessage">
+			<h3 class="text-center">No outstanding books</h3>
+		</div>
+		<div class="col-md-12 col-xs-12" ng-if="branches.length >0">
             <div class="form-group">
 				<label for="exampleFormControlSelect1">Select Branch</label>
 				<div class="form-item-container">
@@ -23,7 +26,7 @@
 			</div>
         </div>
         <div class="col-md-12 col-xs-12">
-            <button type="button" class="btn btn-primary" ng-click="overrideDueDate(borrower.cardNo)">Override
+            <button type="button" class="btn btn-primary" ng-if="!showmessage" ng-click="overrideDueDate(borrower.cardNo)">Override
 				DueDate</button>
         </div>
 	</div>

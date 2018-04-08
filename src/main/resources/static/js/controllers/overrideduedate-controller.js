@@ -20,6 +20,9 @@ lmsApp.controller("OverrideDueDateController",function($scope,$http,$location,$r
 
     lmsFactory.readAllObjects("http://localhost:8080/lms/readBranchByBorrower/"+$routeParams.cardNo).then(function(data){
         $scope.branches = data;
+        if($scope.branches.length == 0){
+            $scope.showmessage = true;
+        }
     })
 
     // lmsFactory.readAllObjects("http://localhost:8080/lms/readBookByBorrower/"+$routeParams.cardNo).then(function(data){

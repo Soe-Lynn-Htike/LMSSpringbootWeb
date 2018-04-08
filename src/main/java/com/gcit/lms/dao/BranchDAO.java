@@ -49,7 +49,7 @@ public class BranchDAO extends BaseDAO<Branch> implements ResultSetExtractor<Lis
 		}
 	}
 	public List<Branch> readBranchByBorrower(Integer cardNo)throws ClassNotFoundException, SQLException {
-		return jdbcTemplate.query("select * from tbl_library_branch where branchId IN(select branchId from tbl_book_loans where cardNo=?)",new Object[] {cardNo}, this);
+		return jdbcTemplate.query("select * from tbl_library_branch where branchId IN(select branchId from tbl_book_loans where cardNo=? and dateIn IS  NULL)",new Object[] {cardNo}, this);
 	}
 	public Branch readBranchById(Integer branchId) {
 		List<Branch> branches = jdbcTemplate.query("select * from tbl_library_branch where branchId=?",new Object[] {branchId},this);
