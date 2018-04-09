@@ -72,6 +72,31 @@ lmsApp.controller("bookController",function($scope, $http, $window, $location,lm
 			$scope.pagination.numPages = Math.ceil($scope.books.length/$scope.pagination.perPage);
 	})
 	}
+
+	$scope.deleteBook = function(bookId){
+		var book = {
+			"bookId" : bookId
+		}
+		lmsFactory.saveAllObjects(adminConstants.SAVE_ALL_BOOKS, $scope.book).then(function(data){
+			lmsFactory.readAllObjects(adminConstants.GET_ALL_BOOKS).then(function(data){
+				$scope.books = data;
+				$scope.pagination = Pagination.getNew(10);
+				$scope.pagination.numPages = Math.ceil($scope.books.length/$scope.pagination.perPage);
+			})
+			ngNotify.set('Book deleted successfully', {
+				theme: 'pure',
+				position: 'top',
+				duration: 1000,
+				type: 'info',
+				sticky: false,
+				button: true,
+				html: false
+			});
+
+		$window.location.href = "#/admin/viewbooks";
+	})
+
+	}
 })
 
 

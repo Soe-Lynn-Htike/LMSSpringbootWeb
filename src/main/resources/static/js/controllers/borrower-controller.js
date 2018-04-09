@@ -21,7 +21,7 @@ lmsApp.controller("borrowerController",function($scope, $http, $window, $locatio
           })
       }
   
-      $scope.deletePublisher = function(cardNo){
+      $scope.deleteBorrower = function(cardNo){
         var borrower = {
                 "cardNo": cardNo
         }
