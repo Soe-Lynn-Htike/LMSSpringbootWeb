@@ -1,10 +1,14 @@
 "use strict";
-lmsApp.config(["$routeProvider", function($routeProvider,$locationProvider){
+lmsApp.config(["$routeProvider","$locationProvider", function($routeProvider,$locationProvider){
 	/*$locationProvider.html5Mode(true).hasPrefix("!");*/
+	/*$locationProvider.html5Mode({
+		enabled : true,
+		requireBase : false
+	});*/
 	return $routeProvider.when("/",{
 		redirectTo: "/home"
 	}).when("/home", {
-		templateUrl: "home.html"
+		templateUrl: "./home.html"
 	}).when("/admin", {
 		templateUrl: "admin.html"
 	}).when("/admin/author", {

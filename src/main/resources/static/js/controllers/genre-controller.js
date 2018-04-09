@@ -1,5 +1,5 @@
 "use strict";
-lmsApp.controller("genreController",function($scope, $http, $window, $location,lmsFactory,adminConstants,Pagination,$filter){
+lmsApp.controller("genreController",function($scope, $http, $window, $location,lmsFactory,adminConstants,Pagination,$filter,ngNotify){
     if($location.path() == '/admin/addgenre'){
 		lmsFactory.readAllObjects(adminConstants.INITIALIZE_GENRE).then(function(data){
 			$scope.genre = data;
@@ -18,9 +18,31 @@ lmsApp.controller("genreController",function($scope, $http, $window, $location,l
     }
     
     $scope.saveGenre= function(){
-        lmsFactory.saveAllObjects(adminConstants.SAVE_ALL_GENRES, $scope.genre).then(function(data){
-			$window.location.href = "#/admin/viewgenres";
-		})
+		if($scope.genre.genre_name === null){
+			ngNotify.set('Genre name is blank ', {
+				theme: 'pure',
+				position: 'top',
+				duration: 1000,
+				type: 'warn',
+				sticky: false,
+				button: true,
+				html: false
+			});
+		}else{
+			lmsFactory.saveAllObjects(adminConstants.SAVE_ALL_GENRES, $scope.genre).then(function(data){
+				ngNotify.set('Genre created successfully ', {
+					theme: 'pure',
+					position: 'top',
+					duration: 1000,
+					type: 'info',
+					sticky: false,
+					button: true,
+					html: false
+				});
+				$window.location.href = "#/admin/viewgenres";
+			})
+		}
+        
     }
 
     $scope.searchGenre = function(){
@@ -47,7 +69,7 @@ lmsApp.controller("genreController",function($scope, $http, $window, $location,l
 })
 
 
-lmsApp.controller("GenreDetailController",function($scope, $http, $window, $location,$routeParams,lmsFactory,adminConstants,Pagination,$filter){
+lmsApp.controller("GenreDetailController",function($scope, $http, $window, $location,$routeParams,lmsFactory,adminConstants,Pagination,$filter,ngNotify){
 
     lmsFactory.readAllObjects("http://localhost:8080/lms/readGenreById/"+$routeParams.genreId).then(function(data){
 			$scope.genre = data;
@@ -60,9 +82,31 @@ lmsApp.controller("GenreDetailController",function($scope, $http, $window, $loca
 		$scope.books =data;
 	})
 	$scope.updateGenre = function(genreId){
-		 $scope.genre.books = $scope.booklist;
-		lmsFactory.saveAllObjects(adminConstants.SAVE_ALL_GENRES,$scope.genre).then(function(data){
-			$window.location.href = "#/admin/viewgenres"
-		})
+		if($scope.genre.genre_name ===""){
+			ngNotify.set('Genre is blank', {
+				theme: 'pure',
+				position: 'top',
+				duration: 1000,
+				type: 'warn',
+				sticky: false,
+				button: true,
+				html: false
+			});
+		}else{
+			$scope.genre.books = $scope.booklist;
+			lmsFactory.saveAllObjects(adminConstants.SAVE_ALL_GENRES,$scope.genre).then(function(data){
+				ngNotify.set('Genre updated successfully', {
+					theme: 'pure',
+					position: 'top',
+					duration: 1000,
+					type: 'info',
+					sticky: false,
+					button: true,
+					html: false
+				});
+				$window.location.href = "#/admin/viewgenres"
+			})
+		}
+		
 	}
 })
