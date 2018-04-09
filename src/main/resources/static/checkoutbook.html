@@ -12,7 +12,7 @@
 				
 			</div>
         </div>
-        <div class="col-md-12 col-xs-12" ng-if="books">
+        <div class="col-md-12 col-xs-12" ng-if="books.length >0">
             <div class="form-group">
 				<label for="exampleFormControlSelect1">Select Book</label>
 				<div class="form-item-container">
@@ -21,9 +21,13 @@
 				</div>
 				
 			</div>
-        </div>
+		</div>
+		
+		<div class="col-md-12 col-xs-12 jumbotron" ng-if="books.length ===0">
+			<h3 class="text-center">This branch has no available books</h3>
+		</div>
         <div class="col-md-12 col-xs-12">
-            <button type="button" class="btn btn-primary" ng-click="checkOutBook(borrower.cardNo)">CheckOut
+            <button type="button" class="btn btn-primary"  ng-if="books.length >0" ng-click="checkOutBook(borrower.cardNo)">CheckOut
 				Book</button>
         </div>
 	</div>
