@@ -11,7 +11,7 @@ lmsApp.controller("bookController",function($scope, $http, $window, $location,lm
             lmsFactory.readAllObjects(adminConstants.GET_ALL_GENRES).then(function(data){
 				$scope.genres =data;
             })
-            lmsFactory.readAllObjects(adminConstants.GET_PUBLISHERS_WITHOUT_BOOK).then(function(data){
+            lmsFactory.readAllObjects(adminConstants.GET_ALL_PUBSLISHERS).then(function(data){
 				$scope.publishers =data;
             })
 		})
